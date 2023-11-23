@@ -55,7 +55,7 @@ export async function getUserId(userToken) {
     throw errors.USER_NOT_FOUND()
 }
 
-export async function createGroup(group) {
+export async function createGroup(group, userId) {
     const existingGroup = GROUPS.find(u => {
         return u.name == group.name
     })
@@ -71,8 +71,15 @@ export async function createGroup(group) {
     throw errors.GROUP_ALREADY_EXISTS()
 }
 
-export async function editGroup(userToken) {
-
+export async function editGroup(id, newGroup, userId) {
+    const idx = GROUPS.findIndex(u => u.id == id && u.userId == userId)
+    if (idx != -1) {
+    if (newGroup.name) GROUPS[idx].name = newGroup.name
+    if (newGroup.description) GROUPS[idx].description = newGroup.description
+    
+    return GROUPS[idx]
+    }
+    throw errors.GROUP_NOT_FOUND()
 }
 
 export async function deleteGroup(userToken) {
@@ -87,7 +94,7 @@ export async function removeEventFromGroup(userToken) {
 export async function listAllGroups(userToken) {
 }
 
-export async function getGroup(groupId, userToken){
+export async function getGroup(groupId){
     const group = GROUPS.find(u => {
         return u.id == groupId
     })
