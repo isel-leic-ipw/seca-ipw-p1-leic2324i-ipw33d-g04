@@ -16,9 +16,10 @@ export async function createGroup(newGroup, userToken) {
     const userId = await UserGroupData.getUserId(userToken)
     const group = {
         name: newGroup.name,
-        description: newGroup.description
+        description: newGroup.description,
+        userId: userId
     }
-    return await UserGroupData.createGroup(group, userId)
+    return await UserGroupData.createGroup(group)
 }
 
 export async function editGroup(groupId, editedGroup, userToken) {
