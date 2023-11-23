@@ -94,10 +94,10 @@ async function _getGroup(req, rsp) {
 }
 
 export function createUser(req, rsp) {
-  const username = req.body.username
-
-  if(userData.createUser(username)) {
-      return rsp.status(201).json({"user-token": user.token})
+  const username = req.body.name
+  const userToken = req.body.token
+  if(userData.addUser(username)) {
+      return rsp.status(201).json({"user-token": userToken})
   } 
 
   rsp.status(400).json("User already exists")
