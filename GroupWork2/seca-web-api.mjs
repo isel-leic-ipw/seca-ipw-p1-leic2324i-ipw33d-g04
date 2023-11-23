@@ -1,45 +1,111 @@
-import './seca-services.mjs'
+import * as services from './seca-services.mjs'
+import * as userData from './seca-data-mem.mjs'
+import errorToHttp from './errors.mjs'
 
-export function getPopularEventsListByDefault(req, rsp) {
-    rsp.end(`GET List Popular Events`)
+
+export const getAllPopularEventsList = processRequest(_getAllPopularEventsList)
+export const getEventByName = processRequest(_getEventByName)
+export const createGroup = processRequest(_createGroup)
+export const editGroup = processRequest(_editGroup)
+export const deleteGroup = processRequest(_deleteGroup)
+export const addEventToGroup = processRequest(_addEventToGroup)
+export const removeEventFromGroup = processRequest(_removeEventFromGroup)
+export const listAllGroups = processRequest(_listAllGroups)
+export const getGroup = processRequest(_getGroup)
+
+function processRequest(reqProcessor) {
+  return async function(req, rsp) {
+      const token = getToken(req)
+      if(!token) {
+          rsp.status(401).json("Not authorized")  
+      }
+      req.token = token
+      try {
+          return await reqProcessor(req, rsp)
+      } catch (e) {
+          const rspError = errorToHttp(e) // erros ainda por implementar num ficheiro "errors.js"
+          rsp.status(rspError.status).json(rspError.body)
+      }
+  }
 }
 
-export function getEventNamesByDefault(req, rsp) {
-    rsp.end(`GET: Search Event`)
+async function _getAllPopularEventsList(req, rsp) {
+        const events = await services.getAllPopularEventsList(req.token)
+        return rsp.json(events)
 }
 
-export function getPopularEventsList(req, rsp) {
-    rsp.end(`GET List Popular Events speficied by page and size`)
+async function _getEventByName(req, rsp) {
+        const name = req.params.name
+        const event = await services.getEventByName(name, req.token)
+        if(event)
+            return rsp.json(event)
+        rsp.status(404).json("Event not found")
 }
 
-export function getEventNames(req, rsp) {
-    rsp.end(`GET: Search Event speficied by page and size`)
+async function _createGroup(req, rsp) {
+        const newGroup = {
+          name: req.body.name,
+          description: req.body.description
+        }
+        const group = await services.createGroup(newGroup, req.token)
+        rsp.status(201).json(group)
+  }
+
+async function _editGroup(req, rsp) {
+      const editedGroup = {
+          newName: req.body.newName,
+          newDescription: req.body.newDescription
+      }
+      const groupId = req.params.id;
+      const group = await services.editGroup(groupId, editedGroup, req.token)
+      rsp.json(group)
+  }
+
+async function _deleteGroup(req, rsp) {
+    const id = req.params.id
+    const group = services.deleteGroup(id, req.token)
+    if(group) {}
+    rsp.status(404).json(`Group with id ${id} not found`)
 }
 
-export function createGroup(req, rsp) {
-    rsp.end(`POST: Create Group with its name and description`)
+async function _addEventToGroup(req, rsp) {  
+    const eventId = req.params.eventId
+    const groupId = req.params.groupId
+    const addedEvent = await services.addEventToGroup(groupId, eventId, req.token)
+    return rsp.json(addedEvent)
 }
 
-export function editGroup(req, rsp) {
-    rsp.end(`PUT: Edit Group changing its name and description`)
+async function _removeEventFromGroup (req, rsp) {
+    const groupId = req.params.groupId
+    const eventId = req.params.eventId
+    const removedEvent = await services.removeEventFromGroup(groupId, eventId, req.token)
+    rsp.json(removedEvent)
 }
 
-export function listGroups(req, rsp) {
-    rsp.end(`GET: List all Groups`)
+async function _listAllGroups(req, rsp) {
+  const allGroups = await services.getAllGroups(req.token);
+  return rsp.json(allGroups);
 }
 
-export function deleteGroup(req, rsp) {
-    rsp.end(`DELETE: Delete Group`)
-}
-
-export function addEvent(req, rsp) {
-    rsp.end(`PUT: Add Event to a group`)
-}
-
-export function removeEvent(req, rsp) {
-    rsp.end(`DELETE: Remove Event from a Group`)
+async function _getGroup(req, rsp) {
+  const groupId = req.params.groupId;
+  const group = await services.getGroup(groupId, req.token);
+  return rsp.json(group)
 }
 
 export function createUser(req, rsp) {
-    rsp.end(`POST: Create new User given its username`)
+  const username = req.body.username
+
+  if(userData.createUser(username)) {
+      return rsp.status(201).json({"user-token": user.token})
+  } 
+
+  rsp.status(400).json("User already exists")
+}
+
+function getToken(req) {
+  const token = req.get("Authorization")
+  if(token) {
+      return token.split(" ")[1]
+  }
 }
