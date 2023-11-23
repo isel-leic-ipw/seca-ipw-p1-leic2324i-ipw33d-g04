@@ -1,14 +1,12 @@
 import * as eventsData from './tm-events-data.mjs'
-import * as UserGroupData from './seca-data-MediaMetadata.mjs'
+import * as UserGroupData from './seca-data-mem.mjs'
 import errors from './errors.mjs'
 
-export async function getAllPopularEventsList(userToken) {
-    const userId = await UserGroupData.getUserId(userToken)
-    return eventsData.getAllPopularEventsList(userId)
+export async function getAllPopularEventsList(limit) {
+    return await eventsData.getAllPopularEventsList(limit)
 }
 
-export async function getEventByName(name, userToken) {
-    const userId = await UserGroupData.getUserId(userToken)
+export async function getEventsByName(name) {
     return await _getEvent(name, userId)
 }
 
@@ -64,7 +62,7 @@ async function _getEvent(name, userId) {
     if(!name) {
         throw errors.INVALID_ARGUMENT("name")
     }
-    const event = await eventsData.getEventByName(name)
+    const event = await eventsData.getEventsByName(name)
     if(event && event.userId == userId)
         return event
     throw errors.NOT_AUTHORIZED(`User ${userId}`, `Event with name ${name}`)

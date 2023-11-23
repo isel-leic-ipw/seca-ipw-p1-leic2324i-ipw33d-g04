@@ -1,7 +1,21 @@
 import './seca-data-mem.mjs'
 import fetch from 'node-fetch';
 
-const KEY = 'SRgOVLFAXnlAaniGoODNS3iGzIXyOqI6';
-const URL = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${KEY}`;
+export async function getAllPopularEventsList(limit) {
+    const data = await fetch(`https://app.ticketmaster.com/discovery/v2/events/?sort=relevance,desc&apikey=${apiKey}`)
+    const events = await data.json()
+    if (eventData._embedded && eventData._embedded.events){
+        return events.items.slice(0, limit)
+    }
+        throw errors.INVALID()
+}
 
-fetch(URL)
+export async function getEventsByName(name, limit) {
+    const data = await fetch(`https://app.ticketmaster.com/discovery/v2/events/?keyword=${name}&sort=relevance,desc&apikey=${apiKey}`);
+    const eventData = await data.json()
+    if (eventData._embedded && eventData._embedded.events) {
+      const events = eventData._embedded.events.slice(0, limit);
+      return events
+    }
+      throw errors.INVALID()
+}

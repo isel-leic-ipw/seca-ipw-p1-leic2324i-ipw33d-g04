@@ -1,4 +1,5 @@
 import crypto from 'node:crypto'
+import errors from './errors.mjs'
 
 const USERS = [
   {
@@ -80,18 +81,46 @@ export async function editGroup(id, newGroup, userId) {
     return GROUPS[idx]
     }
     throw errors.GROUP_NOT_FOUND()
+  }
+
+export async function deleteGroup(id, userId) {
+    const idx = getGroupIdx(id, userId)
+    const group = GROUPS[idx]
+    GROUPS.splice(idx,1)[0]
+    return group
 }
 
-export async function deleteGroup(userToken) {
+export async function getGroupIdx(id, userId){
+    const idx = GROUPS.findIndex(u => u.id === id && u.userId === userId)
+    if(idx != -1){
+        return idx
+    }
+        throw errors.GROUP_NOT_FOUND()
 }
 
-export async function addEventToGroup(userToken) {
+export async function addEventToGroup(groupId, event, userId) {
+    const idx = getGroupIdx(groupId, userId)
+      const isEventInGroup = GROUPS[idx].events.some(u => u.id == event.id)
+      if (!isEventInGroup) {
+        GROUPS[idx].events.push(event)
+        return event
+      }
+        throw errors.EVENT_ALREADY_IN_GROUP()
 }
 
-export async function removeEventFromGroup(userToken) {
+export async function removeEventFromGroup(groupId, eventId, userId) {
+    const groupIdx = getGroupIdx(groupId, userId)
+      const eventIdx = GROUPS[groupIdx].events.findIndex(e => e.id === eventId)
+      if (eventIdx != -1) {
+        const removedEvent = GROUPS[groupIdx].events.splice(eventIdx, 1)[0]
+        return removedEvent
+      }
+        throw errors.EVENT_NOT_IN_GROUP()
 }
+  
 
-export async function listAllGroups(userToken) {
+export async function listAllGroups() {
+    return GROUPS
 }
 
 export async function getGroup(groupId){

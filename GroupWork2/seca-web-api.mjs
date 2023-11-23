@@ -4,7 +4,7 @@ import errorToHttp from './errors.mjs'
 
 
 export const getAllPopularEventsList = processRequest(_getAllPopularEventsList)
-export const getEventByName = processRequest(_getEventByName)
+export const getEventsByName = processRequest(_getEventsByName)
 export const createGroup = processRequest(_createGroup)
 export const editGroup = processRequest(_editGroup)
 export const deleteGroup = processRequest(_deleteGroup)
@@ -30,13 +30,13 @@ function processRequest(reqProcessor) {
 }
 
 async function _getAllPopularEventsList(req, rsp) {
-        const events = await services.getAllPopularEventsList(req.token)
+        const events = await services.getAllPopularEventsList(req.limit)
         return rsp.json(events)
 }
 
-async function _getEventByName(req, rsp) {
+async function _getEventsByName(req, rsp) {
         const name = req.params.name
-        const event = await services.getEventByName(name, req.token)
+        const event = await services.getEventsByName(name, req.token)
         if(event)
             return rsp.json(event)
         rsp.status(404).json("Event not found")
