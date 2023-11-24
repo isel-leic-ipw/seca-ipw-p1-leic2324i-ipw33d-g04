@@ -1,5 +1,6 @@
 import './seca-data-mem.mjs'
 import fetch from 'node-fetch';
+import errors from './errors.mjs'
 
 export async function getAllPopularEventsList(limit) {
     const data = await fetch(`https://app.ticketmaster.com/discovery/v2/events/?sort=relevance,desc&apikey=${apiKey}`)

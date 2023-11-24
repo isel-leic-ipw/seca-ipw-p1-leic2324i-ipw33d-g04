@@ -53,7 +53,7 @@ export async function getUserId(userToken) {
     if(user) {
         return user.id
     }
-    throw "error"// errors.USER_NOT_FOUND()
+    throw errors.USER_NOT_FOUND()
 }
 
 export async function createGroup(group, userId) {
@@ -69,19 +69,15 @@ export async function createGroup(group, userId) {
     GROUPS.push(createdGroup)
     return createdGroup
     }
-    throw "error"// errors.GROUP_ALREADY_EXISTS()
+    throw errors.ALREADY_EXISTS("group")
 }
 
 export async function editGroup(id, newGroup, userId) {
-    const idx = GROUPS.findIndex(u => u.id == id && u.userId == userId)
-    if (idx != -1) {
+    const idx = getGroupIdx(id, userId)
     if (newGroup.name) GROUPS[idx].name = newGroup.name
     if (newGroup.description) GROUPS[idx].description = newGroup.description
-    
     return GROUPS[idx]
-    }
-    throw "error"// errors.GROUP_NOT_FOUND()
-  }
+}
 
 export async function deleteGroup(id, userId) {
     const idx = getGroupIdx(id, userId)
@@ -95,7 +91,7 @@ export async function getGroupIdx(id, userId){
     if(idx != -1){
         return idx
     }
-    throw "error"// errors.GROUP_NOT_FOUND()
+    throw errors.NOT_FOUND("id")
 }
 
 export async function addEventToGroup(groupId, event, userId) {
@@ -105,7 +101,7 @@ export async function addEventToGroup(groupId, event, userId) {
         GROUPS[idx].events.push(event)
         return event
     }
-    throw "error"// errors.EVENT_ALREADY_IN_GROUP()
+    throw errors.ALREADY_EXISTS("event")
 }
 
 export async function removeEventFromGroup(groupId, eventId, userId) {
@@ -115,7 +111,7 @@ export async function removeEventFromGroup(groupId, eventId, userId) {
         const removedEvent = GROUPS[groupIdx].events.splice(eventIdx, 1)[0]
         return removedEvent
     }
-    throw "error"// errors.EVENT_NOT_IN_GROUP()
+    throw errors.NOT_FOUND("eventId")
 }
   
 
@@ -130,5 +126,5 @@ export async function getGroup(groupId){
     if(group) {
         return group
     }
-    throw "error"// errors.GROUP_NOT_FOUND()
+    throw errors.NOT_FOUND("groupId")
 } 

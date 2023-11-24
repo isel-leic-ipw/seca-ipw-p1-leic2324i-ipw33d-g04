@@ -1,7 +1,7 @@
 import * as services from './seca-services.mjs'
 import * as userData from './seca-data-mem.mjs'
 import crypto from 'crypto'
-// import errorToHttp from './errors.mjs'
+import errorToHttp from './errors.mjs'
 
 export const getAllPopularEventsList = processRequest(_getAllPopularEventsList)
 export const getEventsByName = processRequest(_getEventsByName)
@@ -23,8 +23,8 @@ function processRequest(reqProcessor) {
       try {
           return await reqProcessor(req, rsp)
       } catch (e) {
-          // const rspError = errorToHttp(e) // erros ainda por implementar num ficheiro "errors.js"
-          // rsp.status(rspError.status).json(rspError.body)
+          const rspError = errorToHttp(e)
+          rsp.status(rspError.status).json(rspError.body)
       }
   }
 }
@@ -95,7 +95,7 @@ async function _getGroup(req, rsp) {
 
 export function createUser(req, rsp) {
   const username = req.body.name
-  const userToken = crypto.randomUUID()
+  const userToken = req.body.token
   if(userData.addUser(username)) {
       return rsp.status(201).json({"user-token": userToken})
   } 

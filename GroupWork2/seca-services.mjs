@@ -1,6 +1,6 @@
 import * as eventsData from './tm-events-data.mjs'
 import * as UserGroupData from './seca-data-mem.mjs'
-// import errors from './errors.mjs'
+import errors from './errors.mjs'
 
 export async function getAllPopularEventsList(limit) {
     return await eventsData.getAllPopularEventsList(limit)
@@ -60,10 +60,10 @@ export async function getGroup(groupId, userToken){
 
 async function _getEvent(name, userId) {
     if(!name) {
-        throw "error"// errors.INVALID_ARGUMENT("name")
+        throw errors.INVALID_ARGUMENT("name")
     }
     const event = await eventsData.getEventsByName(name)
     if(event && event.userId == userId)
         return event
-    throw "error"// errors.NOT_AUTHORIZED(`User ${userId}`, `Event with name ${name}`)
+    throw errors.NOT_AUTHORIZED(`User ${userId}`, `Event with name ${name}`)
 }
