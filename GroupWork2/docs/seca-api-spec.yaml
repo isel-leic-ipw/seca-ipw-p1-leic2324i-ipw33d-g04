@@ -15,86 +15,10 @@ servers:
 security:
   - bearerAuth: []
 tags:
-- name: event
-- name: group
-- name: user
+ - name: event
+ - name: group
+ - name: user
 paths:
-  /event/list:
-    get:
-      tags:
-      - event
-      summary: popular events
-      description: Get list of events 
-      operationId: getPopularEventsList
-      #parameters:
-        # - name: q
-        #   in: query
-        #   description: Query to match in task title
-        #   schema: 
-        #     type: string
-        #   required: false
-      #- name: skip
-      #   in: query
-      #   description: number of records to skip for pagination
-      #   schema:
-      #     minimum: 0
-      #     type: integer
-      # - name: limit
-      #   in: query
-      #   description: maximum number of records to return
-      #   schema:
-      #     maximum: 50
-      #     minimum: 0
-      #     type: integer
-      responses:
-        200:
-          description: popular events displayed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EventName'
-        400:
-          $ref: "#/components/responses/400BadRequest"
-        404:
-          $ref: "#/components/responses/404NotFound"  
-  /event/search:
-    get:
-      tags:
-      - event
-      summary: search for events
-      description: Search events by default name
-      operationId: getEventNames
-      #parameters:
-        # - name: q
-        #   in: query
-        #   description: Query to match in task title
-        #   schema: 
-        #     type: string
-        #   required: false
-      #- name: skip
-      #   in: query
-      #   description: number of records to skip for pagination
-      #   schema:
-      #     minimum: 0
-      #     type: integer
-      # - name: limit
-      #   in: query
-      #   description: maximum number of records to return
-      #   schema:
-      #     maximum: 50
-      #     minimum: 0
-      #     type: integer
-      responses:
-        200:
-          description: event name displayed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EventName'
-        400:
-          $ref: "#/components/responses/400BadRequest"
-        404:
-          $ref: "#/components/responses/404NotFound"  
   /event/list/{eventSpec}:
     get:
       tags:
@@ -104,26 +28,23 @@ paths:
       operationId: getPopularEventsList
       security: 
         - bearerAuth: []
-      #parameters:
-        # - name: q
-        #   in: query
-        #   description: Query to match in task title
-        #   schema: 
-        #     type: string
-        #   required: false
-      #- name: skip
-      #   in: query
-      #   description: number of records to skip for pagination
-      #   schema:
-      #     minimum: 0
-      #     type: integer
-      # - name: limit
-      #   in: query
-      #   description: maximum number of records to return
-      #   schema:
-      #     maximum: 50
-      #     minimum: 0
-      #     type: integer
+      parameters:
+        - name: s
+          in: query
+          description: Number of returned events
+          schema: 
+            default: 30
+            minimum: 0
+            type: integer
+          required: false
+        - name: p
+          in: query
+          description: Page number
+          schema:
+            default: 1
+            minimum: 0
+            type: integer
+          required: false
       responses:
         200:
           description: popular events displayed
@@ -144,26 +65,23 @@ paths:
       operationId: getEventNames
       security: 
         - bearerAuth: []
-      #parameters:
-        # - name: q
-        #   in: query
-        #   description: Query to match in task title
-        #   schema: 
-        #     type: string
-        #   required: false
-      #- name: skip
-      #   in: query
-      #   description: number of records to skip for pagination
-      #   schema:
-      #     minimum: 0
-      #     type: integer
-      # - name: limit
-      #   in: query
-      #   description: maximum number of records to return
-      #   schema:
-      #     maximum: 50
-      #     minimum: 0
-      #     type: integer
+      parameters:
+        - name: s
+          in: query
+          description: Number of returned events
+          schema: 
+            default: 30
+            minimum: 0
+            type: integer
+          required: false
+        - name: p
+          in: query
+          description: Page number
+          schema:
+            default: 1
+            minimum: 0
+            type: integer
+          required: false
       responses:
         200:
           description: event name displayed
@@ -321,8 +239,8 @@ paths:
         201:
           description: group added
           content: {}
-        404:
-          $ref: "#/components/responses/404NotFound"
+        400:
+          $ref: "#/components/responses/400BadRequest"
   /group/remove/{eventID}:
     delete:
       tags:
@@ -394,12 +312,12 @@ components:
         title:
           type: string
           example: Study Http
-        description:
-          type: string
-          example: To develop web applications, knowing HTTP is fundamental
         userId:
           type: integer
           example: 1
+        description:
+          type: string
+          example: To develop web applications, knowing HTTP is fundamental
     GroupName:
       required:
       - title
@@ -435,7 +353,7 @@ components:
             id:
               type: integer
               example: 1
-    CreateGroup:
+    NewGroup:
       type: object
       required:
       - groupName

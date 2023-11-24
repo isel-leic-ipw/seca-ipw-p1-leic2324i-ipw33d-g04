@@ -1,0 +1,203 @@
+{
+	"info": {
+		"_postman_id": "fe6282e4-d4f1-4f90-8d7f-2ccfcb2e77b1",
+		"name": "tp2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30917782"
+	},
+	"item": [
+		{
+			"name": "event",
+			"item": [
+				{
+					"name": "event search spec",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "event list spec",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "?s=10&p=5",
+							"query": [
+								{
+									"key": "s",
+									"value": "10"
+								},
+								{
+									"key": "p",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "group",
+			"item": [
+				{
+					"name": "event manipulation",
+					"item": [
+						{
+							"name": "add event",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:2003/group/add/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "2003",
+									"path": [
+										"group",
+										"add",
+										"2"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "3",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "remove event",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:2003/group/remove/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "2003",
+									"path": [
+										"group",
+										"remove",
+										"2"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "3",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "create group",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2003/group",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2003",
+							"path": [
+								"group"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list all groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2003/group",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2003",
+							"path": [
+								"group"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit group",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:2003/group",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2003",
+							"path": [
+								"group"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:2003/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2003",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
