@@ -1,7 +1,7 @@
 import * as services from './seca-services.mjs'
 import * as userData from './seca-data-mem.mjs'
-import errorToHttp from './errors.mjs'
-
+import crypto from 'crypto'
+// import errorToHttp from './errors.mjs'
 
 export const getAllPopularEventsList = processRequest(_getAllPopularEventsList)
 export const getEventsByName = processRequest(_getEventsByName)
@@ -23,49 +23,49 @@ function processRequest(reqProcessor) {
       try {
           return await reqProcessor(req, rsp)
       } catch (e) {
-          const rspError = errorToHttp(e) // erros ainda por implementar num ficheiro "errors.js"
-          rsp.status(rspError.status).json(rspError.body)
+          // const rspError = errorToHttp(e) // erros ainda por implementar num ficheiro "errors.js"
+          // rsp.status(rspError.status).json(rspError.body)
       }
   }
 }
 
 async function _getAllPopularEventsList(req, rsp) {
-        const events = await services.getAllPopularEventsList(req.limit)
-        return rsp.json(events)
+  const events = await services.getAllPopularEventsList(req.limit)
+  return rsp.json(events)
 }
 
 async function _getEventsByName(req, rsp) {
-        const name = req.params.name
-        const event = await services.getEventsByName(name, req.token)
-        if(event)
-            return rsp.json(event)
-        rsp.status(404).json("Event not found")
+  const name = req.params.name
+  const event = await services.getEventsByName(name, req.token)
+  if(event)
+      return rsp.json(event)
+  rsp.status(404).json("Event not found")
 }
 
 async function _createGroup(req, rsp) {
-        const newGroup = {
-          name: req.body.name,
-          description: req.body.description
-        }
-        const group = await services.createGroup(newGroup, req.token)
-        rsp.status(201).json(group)
+  const newGroup = {
+    name: req.body.name,
+    description: req.body.description
   }
+  const group = await services.createGroup(newGroup, req.token)
+  rsp.status(201).json(group)
+}
 
 async function _editGroup(req, rsp) {
-      const editedGroup = {
-          newName: req.body.newName,
-          newDescription: req.body.newDescription
-      }
-      const groupId = req.params.id;
-      const group = await services.editGroup(groupId, editedGroup, req.token)
-      rsp.json(group)
+  const editedGroup = {
+      newName: req.body.newName,
+      newDescription: req.body.newDescription
   }
+  const groupId = req.params.id;
+  const group = await services.editGroup(groupId, editedGroup, req.token)
+  rsp.json(group)
+}
 
 async function _deleteGroup(req, rsp) {
-    const id = req.params.id
-    const group = services.deleteGroup(id, req.token)
-    if(group) {}
-    rsp.status(404).json(`Group with id ${id} not found`)
+  const id = req.params.id
+  const group = services.deleteGroup(id, req.token)
+  if(group) {}
+  rsp.status(404).json(`Group with id ${id} not found`)
 }
 
 async function _addEventToGroup(req, rsp) {  
@@ -95,7 +95,7 @@ async function _getGroup(req, rsp) {
 
 export function createUser(req, rsp) {
   const username = req.body.name
-  const userToken = req.body.token
+  const userToken = crypto.randomUUID()
   if(userData.addUser(username)) {
       return rsp.status(201).json({"user-token": userToken})
   } 
@@ -108,4 +108,4 @@ function getToken(req) {
   if(token) {
       return token.split(" ")[1]
   }
-}
+} 

@@ -1,5 +1,5 @@
 import crypto from 'node:crypto'
-import errors from './errors.mjs'
+// import errors from './errors.mjs'
 
 const USERS = [
   {
@@ -53,7 +53,7 @@ export async function getUserId(userToken) {
     if(user) {
         return user.id
     }
-    throw errors.USER_NOT_FOUND()
+    throw "error"// errors.USER_NOT_FOUND()
 }
 
 export async function createGroup(group, userId) {
@@ -69,7 +69,7 @@ export async function createGroup(group, userId) {
     GROUPS.push(createdGroup)
     return createdGroup
     }
-    throw errors.GROUP_ALREADY_EXISTS()
+    throw "error"// errors.GROUP_ALREADY_EXISTS()
 }
 
 export async function editGroup(id, newGroup, userId) {
@@ -80,7 +80,7 @@ export async function editGroup(id, newGroup, userId) {
     
     return GROUPS[idx]
     }
-    throw errors.GROUP_NOT_FOUND()
+    throw "error"// errors.GROUP_NOT_FOUND()
   }
 
 export async function deleteGroup(id, userId) {
@@ -95,27 +95,27 @@ export async function getGroupIdx(id, userId){
     if(idx != -1){
         return idx
     }
-        throw errors.GROUP_NOT_FOUND()
+    throw "error"// errors.GROUP_NOT_FOUND()
 }
 
 export async function addEventToGroup(groupId, event, userId) {
     const idx = getGroupIdx(groupId, userId)
-      const isEventInGroup = GROUPS[idx].events.some(u => u.id == event.id)
-      if (!isEventInGroup) {
+    const isEventInGroup = GROUPS[idx].events.some(u => u.id == event.id)
+    if (!isEventInGroup) {
         GROUPS[idx].events.push(event)
         return event
-      }
-        throw errors.EVENT_ALREADY_IN_GROUP()
+    }
+    throw "error"// errors.EVENT_ALREADY_IN_GROUP()
 }
 
 export async function removeEventFromGroup(groupId, eventId, userId) {
     const groupIdx = getGroupIdx(groupId, userId)
-      const eventIdx = GROUPS[groupIdx].events.findIndex(e => e.id === eventId)
-      if (eventIdx != -1) {
+    const eventIdx = GROUPS[groupIdx].events.findIndex(e => e.id === eventId)
+    if (eventIdx != -1) {
         const removedEvent = GROUPS[groupIdx].events.splice(eventIdx, 1)[0]
         return removedEvent
-      }
-        throw errors.EVENT_NOT_IN_GROUP()
+    }
+    throw "error"// errors.EVENT_NOT_IN_GROUP()
 }
   
 
@@ -130,5 +130,5 @@ export async function getGroup(groupId){
     if(group) {
         return group
     }
-    throw errors.GROUP_NOT_FOUND()
+    throw "error"// errors.GROUP_NOT_FOUND()
 } 
