@@ -8,7 +8,7 @@
   "name": "groupwork2",
   "version": "1.0.0",
   "description": "groupwork2",
-  "main": "seca-server.js",
+  "main": "seca-server.mjs",
   "directories": {
     "doc": "docs"
   },

@@ -4,7 +4,7 @@ import swaggerUi from 'swagger-ui-express'
 import yaml from 'yamljs'
 
 var app = express();
-const swaggerDocument = yaml.load('./do  cs/seca-api-spec.yaml')
+const swaggerDocument = yaml.load('./docs/seca-api-spec.yaml')
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 const PORT = 2003;

@@ -1,6 +1,5 @@
 import * as services from './seca-services.mjs'
 import * as userData from './seca-data-mem.mjs'
-import crypto from 'crypto'
 import errorToHttp from './errors.mjs'
 
 export const getAllPopularEventsList = processRequest(_getAllPopularEventsList)
