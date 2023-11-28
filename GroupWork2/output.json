@@ -1,0 +1,18 @@
+{
+  "events": [
+    {
+      "id": "G5v0Z9Yc3BZyy",
+      "name": "Phoenix Suns vs. Memphis Grizzlies",
+      "date": "2023-12-03T02:00:00Z",
+      "segment": "Sports",
+      "genre": "Basketball"
+    },
+    {
+      "id": "G5v0Z9Yc3xZM8",
+      "name": "Phoenix Suns vs. Memphis Grizzlies",
+      "date": "2024-01-08T01:00:00Z",
+      "segment": "Sports",
+      "genre": "Basketball"
+    }
+  ]
+}
