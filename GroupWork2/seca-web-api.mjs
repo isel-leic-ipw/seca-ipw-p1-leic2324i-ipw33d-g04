@@ -82,7 +82,7 @@ async function _removeEventFromGroup (req, rsp) {
 }
 
 async function _listAllGroups(req, rsp) {
-  const allGroups = await services.getAllGroups(req.token);
+  const allGroups = await services.listAllGroups(req.token);
   return rsp.json(allGroups);
 }
 
