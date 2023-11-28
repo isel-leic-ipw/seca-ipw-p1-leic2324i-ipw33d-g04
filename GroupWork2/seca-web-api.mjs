@@ -1,6 +1,6 @@
 import * as services from './seca-services.mjs'
 import * as userData from './seca-data-mem.mjs'
-import errorToHttp from './errors.mjs'
+import errorToHttp from './errors-to-http.mjs'
 
 export const getAllPopularEventsList = processRequest(_getAllPopularEventsList)
 export const getEventsByName = processRequest(_getEventsByName)
@@ -11,6 +11,9 @@ export const addEventToGroup = processRequest(_addEventToGroup)
 export const removeEventFromGroup = processRequest(_removeEventFromGroup)
 export const listAllGroups = processRequest(_listAllGroups)
 export const getGroup = processRequest(_getGroup)
+
+const DEFAULT_S = 30
+const DEFAULT_P = 1
 
 function processRequest(reqProcessor) {
   return async function(req, rsp) {
@@ -29,11 +32,15 @@ function processRequest(reqProcessor) {
 }
 
 async function _getAllPopularEventsList(req, rsp) {
-  const events = await services.getAllPopularEventsList(req.limit)
+  const s = s != null ? req.params.s : DEFAULT_S
+  const p = p != null ? req.params.p : DEFAULT_P
+  const events = await services.getAllPopularEventsList(req.body.limit, s, p)
   return rsp.json(events)
 }
 
 async function _getEventsByName(req, rsp) {
+  const s = s != null ? req.params.s : DEFAULT_S
+  const p = p != null ? req.params.p : DEFAULT_P
   const name = req.params.name
   const event = await services.getEventsByName(name, req.token)
   if(event)
@@ -95,6 +102,10 @@ async function _getGroup(req, rsp) {
 export function createUser(req, rsp) {
   const username = req.body.name
   const userToken = req.body.token
+  if (Object.keys(req.body).length == 0)
+  return rsp
+    .status(400)
+    .json({ message: "[WA] No user info was provided. Try again." });
   if(userData.addUser(username)) {
       return rsp.status(201).json({"user-token": userToken})
   } 
@@ -103,8 +114,11 @@ export function createUser(req, rsp) {
 }
 
 function getToken(req) {
-  const token = req.get("Authorization")
-  if(token) {
-      return token.split(" ")[1]
+  const BEARER_STR = "Bearer "
+  const tokenHeader = req.get("Authorization")
+  if(!(tokenHeader && tokenHeader.startsWith(BEARER_STR) && tokenHeader.length > BEARER_STR.length)) {
+    return null
   }
+  req.token = tokenHeader.split(" ")[1]
+  return req.token
 } 
