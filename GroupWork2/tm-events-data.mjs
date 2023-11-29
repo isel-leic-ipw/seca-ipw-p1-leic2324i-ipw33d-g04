@@ -2,26 +2,23 @@ import './seca-data-mem.mjs';
 import fetch from 'node-fetch';
 import errors from './errors.mjs';
 import fs from 'fs';
-const apiKey = 'YfmQlHOLFgYdtMQaFbAK7noAe283pmaV';
+const API_KEY = 'YfmQlHOLFgYdtMQaFbAK7noAe283pmaV';
 const outputFile = 'output.json';
 
-export async function getAllPopularEventsList(limit) {
-    const data = await fetch(`https://app.ticketmaster.com/discovery/v2/events/?sort=relevance,desc&apikey=${apiKey}`)
-    const events = await data.json()
-    if (events._embedded && events._embedded.events){
-        return events._embedded.events.slice(0, limit)
-    }
-        throw errors.INVALID()
+export async function getAllPopularEventsList(s, p) {
+  const data = await fetch(`https://app.ticketmaster.com/discovery/v2/events/?sort=relevance,desc&size=${s}&page=${p}&apikey=${API_KEY}`)
+  const eventData = await data.json()
+  if (eventData._embedded && eventData._embedded.events)
+    return eventData._embedded.events
+  throw errors.INVALID_ARGUMENT(`${s}, ${p}`)
 }
 
-export async function getEventsByName(name, limit) {
-    const data = await fetch(`https://app.ticketmaster.com/discovery/v2/events/?keyword=${name}&sort=relevance,desc&apikey=${apiKey}`);
-    const eventData = await data.json()
-    if (eventData._embedded && eventData._embedded.events) {
-      const events = eventData._embedded.events.slice(0, limit);
-      return events
-    }
-      throw errors.INVALID()
+export async function getEventsByName(name, s, p) {
+  const data = await fetch(`https://app.ticketmaster.com/discovery/v2/events/?keyword=${name}&sort=relevance,desc&size=${s}&page=${p}&apikey=${API_KEY}`);
+  const eventData = await data.json()
+  if (eventData._embedded && eventData._embedded.events)
+    return eventData._embedded.events
+  throw errors.INVALID_ARGUMENT(`${s}, ${p}`)
 }
 
 async function fetchEventDetails(events) {
@@ -45,6 +42,8 @@ function formatEventDetails(eventDetails) {
   });
 }
 
+// Teste das funções
+
 async function writeFile(formattedEventDetails) {
   return new Promise((resolve, reject) => {
     const outputData = {
@@ -65,10 +64,15 @@ async function writeFile(formattedEventDetails) {
 
 async function main() {
   try {
-    const events = await getEventsByName("Phoenix Suns vs. Memphis Grizzlies");
+    const events = await getAllPopularEventsList(5, 30);
+    const events2 = await getEventsByName("Hamilton", 5, 1);
     const eventDetails = await fetchEventDetails(events);
+    const eventDetails2 = await fetchEventDetails(events2);
     const formattedEventDetails = formatEventDetails(eventDetails);
-    await writeFile(formattedEventDetails);
+    const formattedEventDetails2 = formatEventDetails(eventDetails2);
+    console.log(formattedEventDetails);
+    console.log("-----------------------------------");
+    console.log(formattedEventDetails2);
   } catch (error) {
     console.error('Error:', error);
   }

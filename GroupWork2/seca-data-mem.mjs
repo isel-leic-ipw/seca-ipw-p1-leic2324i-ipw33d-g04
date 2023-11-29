@@ -1,15 +1,15 @@
 import crypto from 'node:crypto'
-// import errors from './errors.mjs'
+import errors from './errors.mjs'
 
 const USERS = [
   {
       id: 1,
-      name: "jj",
+      name: "inacio",
       token: "14d72b99-48f6-48d3-94d3-5a4dcfd96c80"
   },
   {
       id: 2,
-      name: "roger",
+      name: "amorim",
       token: "14d72b99-48f6-48d3-94d3-5a4dcfd96c81"
   }
 ]
