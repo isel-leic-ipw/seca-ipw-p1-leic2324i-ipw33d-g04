@@ -35,7 +35,7 @@ async function _getAllPopularEventsList(req, rsp) {
   // obter os parâmetros s e p dos query parameters ou usar valores por defeito
  const s = req.params.s || DEFAULT_S 
   const p = req.params.p || DEFAULT_P
-  const events = await services.getAllPopularEventsList(s, p)
+  const events = await services.getAllPopularEventsList(req.token, s, p)
   return rsp.json(events)
 }
 
@@ -44,9 +44,9 @@ async function _getEventsByName(req, rsp) {
   const s = req.params.s || DEFAULT_S 
   const p = req.params.p || DEFAULT_P
   const name = req.params.name
-  const event = await services.getEventsByName(name, req.token, s, p)
-  if(event)
-      return rsp.json(event)
+  const events = await services.getEventsByName(name, req.token, s, p)
+  if(events)
+      return rsp.json(events)
   rsp.status(404).json("Event not found")
 }
 

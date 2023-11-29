@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 app.use(express.json())
 
 app.get('/event/list/:s/:p', API.getAllPopularEventsList);
-app.get('/event/search/:s/:p', API.getEventsByName);
+app.get('/event/search/:s/:p/:name', API.getEventsByName);
 app.post('/group', API.createGroup);
 app.put('/group', API.editGroup);
 app.get('/group', API.getGroup);
