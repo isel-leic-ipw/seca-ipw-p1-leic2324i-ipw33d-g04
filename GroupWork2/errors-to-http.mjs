@@ -1,10 +1,12 @@
 import { ERROR_CODES } from './errors.mjs'
 
-function HttpResponse(status, e) {
-    this.status = status
-    this.body = {
-        code: e.code,
-        error: e.description
+class HttpResponse {
+    constructor(status, e) {
+        this.status = status
+        this.body = {
+            code: e.code,
+            error: e.description
+        }
     }
 }
 

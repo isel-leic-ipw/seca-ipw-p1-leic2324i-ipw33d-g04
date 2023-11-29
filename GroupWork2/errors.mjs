@@ -20,12 +20,6 @@ export default {
     NOT_AUTHORIZED: (who, what) => { 
         return new Error(ERROR_CODES.NOT_AUTHORIZED,`${who} has no access to ${what}`)
     },
-    ALREADY_EXISTS: (what) => { 
-        return new Error(ERROR_CODES.NOT_AUTHORIZED,`${what} already exists`)
-    },
-    INVALID: () => {
-        return new Error(ERROR_CODES.INVALID, `Invalid response from the API`)
-    }
 }
 
 function Error(code, description) {
