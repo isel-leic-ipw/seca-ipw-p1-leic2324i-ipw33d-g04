@@ -11,11 +11,51 @@
 			"item": [
 				{
 					"name": "event search spec",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Hamilton",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
-							"raw": ""
+							"raw": "{{event}}search/:s/:p",
+							"host": [
+								"{{event}}search"
+							],
+							"path": [
+								":s",
+								":p"
+							],
+							"variable": [
+								{
+									"key": "s",
+									"value": "0"
+								},
+								{
+									"key": "p",
+									"value": "0"
+								}
+							]
 						}
 					},
 					"response": []
@@ -23,18 +63,53 @@
 				{
 					"name": "event list spec",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
 						"url": {
-							"raw": "?s=10&p=5",
-							"query": [
+							"raw": "{{event}}list/:s/:p",
+							"host": [
+								"{{event}}list"
+							],
+							"path": [
+								":s",
+								":p"
+							],
+							"variable": [
 								{
 									"key": "s",
-									"value": "10"
+									"value": "5"
 								},
 								{
 									"key": "p",
-									"value": "5"
+									"value": "30"
 								}
 							]
 						}
@@ -185,6 +260,26 @@
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Iliano",
+							"type": "text"
+						},
+						{
+							"key": "token",
+							"value": "301803810",
+							"type": "text"
+						},
+						{
+							"key": "limit",
+							"value": "150",
+							"type": "text"
+						}
+					]
+				},
 				"url": {
 					"raw": "http://localhost:2003/user",
 					"protocol": "http",
@@ -198,6 +293,32 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "event",
+			"value": "http://localhost:2003/event/"
 		}
 	]
 }

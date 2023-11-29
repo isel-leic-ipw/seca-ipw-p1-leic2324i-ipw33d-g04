@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/isel-leic-ipw/seca-ipw-p1-leic2324i-ipw33d-g04/issues"
   },
-  "homepage": "https://github.com/isel-leic-ipw/seca-ipw-p1-leic2324i-ipw33d-g04#readme"
+  "homepage": "https://github.com/isel-leic-ipw/seca-ipw-p1-leic2324i-ipw33d-g04#readme",
+  "devDependencies": {
+    "supertest": "^6.3.3"
+  }
 }
