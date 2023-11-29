@@ -21,7 +21,7 @@ function processRequest(reqProcessor) {
       if(!token) {
           rsp.status(401).json("Not authorized")  
       }
-      req.token = token
+      //req.token = token
       try {
           return await reqProcessor(req, rsp)
       } catch (e) {
@@ -32,17 +32,19 @@ function processRequest(reqProcessor) {
 }
 
 async function _getAllPopularEventsList(req, rsp) {
-  const s = s != null ? req.params.s : DEFAULT_S
-  const p = p != null ? req.params.p : DEFAULT_P
-  const events = await services.getAllPopularEventsList(req.body.limit, s, p)
+  // obter os parâmetros s e p dos query parameters ou usar valores por defeito
+ const s = req.params.s || DEFAULT_S 
+  const p = req.params.p || DEFAULT_P
+  const events = await services.getAllPopularEventsList(s, p)
   return rsp.json(events)
 }
 
 async function _getEventsByName(req, rsp) {
-  const s = s != null ? req.params.s : DEFAULT_S
-  const p = p != null ? req.params.p : DEFAULT_P
+  // obter os parâmetros s e p dos query parameters ou usar valores por defeito
+  const s = req.params.s || DEFAULT_S 
+  const p = req.params.p || DEFAULT_P
   const name = req.params.name
-  const event = await services.getEventsByName(name, req.token)
+  const event = await services.getEventsByName(name, req.token, s, p)
   if(event)
       return rsp.json(event)
   rsp.status(404).json("Event not found")

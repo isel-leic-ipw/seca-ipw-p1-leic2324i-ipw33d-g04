@@ -12,7 +12,7 @@ console.log("Starting server");
 app.get('/', (req, res) => {
   res.send('Welcome to SECA API');
 });
-// app.use(express.json())
+app.use(express.json())
 
 app.get('/event/list/:s/:p', API.getAllPopularEventsList);
 app.get('/event/search/:s/:p', API.getEventsByName);
