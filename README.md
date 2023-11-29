@@ -2,7 +2,7 @@
 
 ## Unidade Curricular de Introdução à Programação na Web
 
-#### Fase intermédia e final da 1ª parte do projeto
+#### Fase de testes da 1ª parte do projeto
 
 Nesta fase procuramos refinar as ideias pensadas, levando em conta os requisitos do enunciado ao pormenor
 
@@ -19,6 +19,6 @@ Próximas tarefas a serem desenvolvidas:
 ##### 4 -> Verificar se os serviços de aplicação implementados no módulo seca-services.mjs estão de acordo com o pedido no enunciado.
 * Os testes únitários do módulo **seca-services.mjs** devem ser executados com base na criação de um mock (sem acesso acesso àAPI Ticketmaster ou a dados armazenados em memória).
 
-##### 6 -> Analisar se estão corretos os módulos de acesso a dados:
+##### 5 -> Analisar se estão corretos os módulos de acesso a dados:
 * tm-events-data.mjs - acesso à API Ticketmaster.
 * seca-data-mem.mjs - acessar dados de grupos.
