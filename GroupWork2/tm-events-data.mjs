@@ -45,15 +45,15 @@ function formatEventDetails(eventDetails) {
 }
 
 // Teste das funções
-async function main() {
-  try {
-    const events = await getAllPopularEventsList(5, 30);
-    const events2 = await getEventsByName("Hamilton", 5, 1);
-    console.log(events);
-    console.log("-----------------------------------");
-    console.log(events2);
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-main()
+// async function main() {
+//   try {
+//     const events = await getAllPopularEventsList(5, 30);
+//     const events2 = await getEventsByName("Hamilton", 5, 1);
+//     console.log(events);
+//     console.log("-----------------------------------");
+//     console.log(events2);
+//   } catch (error) {
+//     console.error('Error:', error);
+//   }
+// }
+// main()

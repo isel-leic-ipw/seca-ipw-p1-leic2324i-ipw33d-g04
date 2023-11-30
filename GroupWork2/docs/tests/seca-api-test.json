@@ -342,24 +342,13 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "name",
-							"value": "Iliano",
-							"type": "text"
-						},
-						{
-							"key": "token",
-							"value": "301803810",
-							"type": "text"
-						},
-						{
-							"key": "limit",
-							"value": "150",
-							"type": "text"
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"João\",\r\n    \"token\": 301803810\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					]
+					}
 				},
 				"url": {
 					"raw": "http://localhost:2003/user",

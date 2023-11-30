@@ -13,7 +13,7 @@ export const addEventToGroup = processRequest(_addEventToGroup)
 export const removeEventFromGroup = processRequest(_removeEventFromGroup)
 export const listAllGroups = processRequest(_listAllGroups)
 export const getGroup = processRequest(_getGroup)
-
+export const createUser = _createUser
 const DEFAULT_S = 30
 const DEFAULT_P = 1
 
@@ -105,15 +105,16 @@ async function _getGroup(req, rsp) {
   return rsp.json(group)
 }
 
-export function createUser(req, rsp) {
+export function _createUser(req, rsp) {
   const username = req.body.name
-  const userToken = req.body.token
+  // const userToken = req.body.token
   if (Object.keys(req.body).length == 0)
-  return rsp
-    .status(400)
-    .json({ message: "[WA] No user info was provided. Try again." });
+    return rsp
+      .status(400)
+      .json({ message: "[WA] No user info was provided. Try again." });
   if(userData.addUser(username)) {
-      return rsp.status(201).json({"user-token": userToken})
+      const u = userData.listUsers()
+      return rsp.status(201).json({"user-token": u[u.length - 1].token})
   } 
 
   rsp.status(400).json("User already exists")

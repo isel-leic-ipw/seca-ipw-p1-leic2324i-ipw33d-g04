@@ -67,6 +67,7 @@ export async function createGroup(group, userId) {
             description: group.description
         }
     GROUPS.push(createdGroup)
+    console.log(GROUPS)
     return createdGroup
     }
     throw errors.ALREADY_EXISTS("group")
@@ -115,8 +116,12 @@ export async function removeEventFromGroup(groupId, eventId, userId) {
 }
   
 
-export async function listAllGroups() {
+export function listAllGroups() {
     return GROUPS
+}
+
+export function listUsers() {
+    return USERS
 }
 
 export async function getGroup(groupId){
