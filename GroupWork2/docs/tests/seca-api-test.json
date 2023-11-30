@@ -28,32 +28,71 @@
 						"method": "GET",
 						"header": [],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "Hamilton",
-									"type": "text"
-								}
-							]
+							"mode": "urlencoded",
+							"urlencoded": []
 						},
 						"url": {
-							"raw": "{{event}}search/:s/:p",
+							"raw": "{{event}}search/:name/:s/:p",
 							"host": [
 								"{{event}}search"
 							],
 							"path": [
+								":name",
 								":s",
 								":p"
 							],
 							"variable": [
 								{
+									"key": "name",
+									"value": "Hamilton"
+								},
+								{
 									"key": "s",
-									"value": "0"
+									"value": "5"
 								},
 								{
 									"key": "p",
-									"value": "0"
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "event search default",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{event}}search/:name",
+							"host": [
+								"{{event}}search"
+							],
+							"path": [
+								":name"
+							],
+							"variable": [
+								{
+									"key": "name",
+									"value": "Hamilton"
 								}
 							]
 						}
@@ -105,12 +144,54 @@
 							"variable": [
 								{
 									"key": "s",
-									"value": "5"
+									"value": ""
 								},
 								{
 									"key": "p",
-									"value": "30"
+									"value": ""
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "event list default",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{event}}list",
+							"host": [
+								"{{event}}list"
 							]
 						}
 					},
