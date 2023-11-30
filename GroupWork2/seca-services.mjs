@@ -2,11 +2,12 @@ import * as eventsData from './tm-events-data.mjs'
 import * as UserGroupData from './seca-data-mem.mjs'
 import errors from './errors.mjs'
 
-export async function getAllPopularEventsList(s, p) {
-    return await eventsData.getAllPopularEventsList(s, p)
+export async function getAllPopularEventsList(userToken, s, p) {
+    const userId = await UserGroupData.getUserId(userToken)
+    return await _getEvent("popular events", userId, s, p)
 }
 
-export async function getEventsByName(name,userToken, s, p) {
+export async function getEventsByName(name, userToken, s, p) {
     const userId = await UserGroupData.getUserId(userToken)
     return await _getEvent(name, userId, s, p)
 }
@@ -57,14 +58,16 @@ export async function listAllGroups(userToken){
 export async function getGroup(groupId, userToken){
     const userId = await UserGroupData.getUserId(userToken)
     await UserGroupData.getGroup(groupId, userId)
-} 
+}
 
 async function _getEvent(name, userId, s, p) {
     if(!name) {
         throw errors.INVALID_ARGUMENT("name")
     }
-    const event = await eventsData.getEventsByName(name, s, p)
-    if(event && event.userId == userId)
+    const event = name == "popular events" ? 
+        await eventsData.getAllPopularEventsList(s, p) : 
+        await eventsData.getEventsByName(name, s, p)
+    if (event)
         return event
     throw errors.NOT_AUTHORIZED(`User ${userId}`, `Event with name ${name}`)
 }
