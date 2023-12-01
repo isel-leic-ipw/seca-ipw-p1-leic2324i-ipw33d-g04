@@ -54,6 +54,7 @@ async function _getEventsByNameByDefault(req, rsp) {
       return rsp.json(events)
   rsp.status(404).json("Event not found")
 }
+
 async function _createGroup(req, rsp) {
   const newGroup = {
     name: req.body.name,
@@ -81,8 +82,8 @@ async function _deleteGroup(req, rsp) {
 }
 
 async function _addEventToGroup(req, rsp) {  
-    const eventId = req.params.eventId
-    const groupId = req.params.groupId
+    const eventId = req.body.eventId
+    const groupId = req.body.groupId
     const addedEvent = await services.addEventToGroup(groupId, eventId, req.token)
     return rsp.json(addedEvent)
 }

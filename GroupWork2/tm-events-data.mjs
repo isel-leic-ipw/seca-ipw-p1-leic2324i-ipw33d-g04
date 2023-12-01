@@ -6,12 +6,17 @@ const API_KEY = 'YfmQlHOLFgYdtMQaFbAK7noAe283pmaV';
 
 export async function getAllPopularEventsList(s, p) {
   const events = await _getEvents(s, p, null, "popular")
-  return formatEventDetails(await fetchEventDetails(events))
+  return formatEventsDetails(await fetchEventDetails(events))
 }
 
 export async function getEventsByName(name, s, p) {
   const events = await _getEvents(s, p, name)
-  return formatEventDetails(await fetchEventDetails(events))
+  return formatEventsDetails(await fetchEventDetails(events))
+}
+
+export async function getEventsById(eventId) {
+  const event = await fetch(`https://app.ticketmaster.com/discovery/v2/events/${eventId}.json?apikey=${API_KEY}`);
+  return formatEventDetails(await fetchSingleEventDetails(event))
 }
 
 async function _getEvents(s, p, name = null, type = "name") {
@@ -24,6 +29,7 @@ async function _getEvents(s, p, name = null, type = "name") {
 }
 
 async function fetchEventDetails(events) {
+  console.log(typeof events)
   try {
     return await Promise.all(events);
   } catch (error) {
@@ -31,29 +37,42 @@ async function fetchEventDetails(events) {
     throw error;
   }
 }
-
-function formatEventDetails(eventDetails) {
-  return eventDetails.map(function (event) {
-    return {
-      id: event.id,
-      name: event.name,
-      date: event.dates.start.dateTime,
-      segment: event.classifications[0].segment.name,
-      genre: event.classifications[0].genre.name,
-    };
-  });
+async function fetchSingleEventDetails(event) {
+  try {
+    return await event.json();
+  } catch (error) {
+    console.error('Error fetching event details:', error);
+    throw error;
+  }
 }
 
+function formatEventsDetails(eventDetails) {
+  return eventDetails.map(formatEventDetails);
+}
+
+function formatEventDetails(event) {
+  return {
+    id: event.id,
+    name: event.name,
+    date: event.dates.start.dateTime,
+    segment: event.classifications[0].segment.name,
+    genre: event.classifications[0].genre.name,
+  };
+}
+
+
 // Teste das funções
-// async function main() {
-//   try {
-//     const events = await getAllPopularEventsList(5, 30);
-//     const events2 = await getEventsByName("Hamilton", 5, 1);
-//     console.log(events);
-//     console.log("-----------------------------------");
-//     console.log(events2);
-//   } catch (error) {
-//     console.error('Error:', error);
-//   }
-// }
-// main()
+/*
+async function main() {
+  try {
+    // const events = await getEventsById(1);
+    const events2 = await getEventsById("Z7r9jZ1AdqAfd");
+    // console.log(events);
+    console.log("-----------------------------------");
+    console.log(events2);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+main()
+*/

@@ -17,19 +17,39 @@ const USERS = [
 const GROUPS = [
     {
         id: 1,
+        userId: 1,
         name: "name",
-        description: "test 123"
+        description: "test 123",
+        events: []
     },
     {
         id: 2,
+        userId: 1,
         name: "name2",
-        description: "test 456"
+        description: "test 456",
+        events: []
+    },
+    {
+        id: 3,
+        userId: 2,
+        name: "name3",
+        description: "test 789",
+        events: []
+    },
+    {
+        id: 4,
+        userId: 2,
+        name: "name4",
+        description: "test 101112",
+        events: []
     }
-]
+];
+
 
 let nextId = USERS.length+1
 
-let nextGroup = GROUPS.length+1
+let nextGroup = GROUPS.length + 1
+
 
 export async function addUser(username) {
     if(!USERS.find(u => u.name == username)) {
@@ -42,7 +62,6 @@ export async function addUser(username) {
         USERS.push(user)
         return true
     } 
-
     return false
 }
 
@@ -56,19 +75,21 @@ export async function getUserId(userToken) {
     throw errors.USER_NOT_FOUND()
 }
 
-export async function createGroup(group, userId) {
-    const existingGroup = GROUPS.find(u => {
-        return u.name == group.name
+export async function createGroup(group) {
+    const existingGroup = GROUPS.find(obj => {
+        return obj.name == group.name
     })
     if(!existingGroup) {
         const createdGroup = {
             id: nextGroup++,
+            userId: group.userId,
             name: group.name,
-            description: group.description
+            description: group.description,
+            events: group.events
         }
-    GROUPS.push(createdGroup)
-    console.log(GROUPS)
-    return createdGroup
+        GROUPS.push(createdGroup)
+        console.log(GROUPS)
+        return createdGroup
     }
     throw errors.ALREADY_EXISTS("group")
 }
@@ -124,7 +145,7 @@ export function listUsers() {
     return USERS
 }
 
-export async function getGroup(groupId){
+export async function getGroup(groupId, userId){
     const group = GROUPS.find(u => {
         return u.id == groupId
     })
@@ -132,4 +153,4 @@ export async function getGroup(groupId){
         return group
     }
     throw errors.NOT_FOUND("groupId")
-} 
+}

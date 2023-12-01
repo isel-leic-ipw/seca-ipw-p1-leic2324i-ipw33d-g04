@@ -1,6 +1,7 @@
 import * as eventsData from './tm-events-data.mjs'
 import * as UserGroupData from './seca-data-mem.mjs'
 import errors from './errors.mjs'
+//import * as nextGroup from './seca-data-mem.mjs'
 
 export async function getAllPopularEventsList(userToken, s, p) {
     const userId = await UserGroupData.getUserId(userToken)
@@ -15,9 +16,10 @@ export async function getEventsByName(name, userToken, s, p) {
 export async function createGroup(newGroup, userToken) {
     const userId = await UserGroupData.getUserId(userToken)
     const group = {
+        userId: userId,
         name: newGroup.name,
         description: newGroup.description,
-        userId: userId
+        events: []          
     }
     return await UserGroupData.createGroup(group)
 }
@@ -36,12 +38,12 @@ export async function deleteGroup(groupId, userToken) {
     await UserGroupData.deleteGroup(groupId, userId)
 }
 
-export async function addEventToGroup(groupId, eventName, userToken) {
+export async function addEventToGroup(groupId, eventId, userToken) {
     const userId = await UserGroupData.getUserId(userToken)
-    const event = eventsData.getEventByName(eventName)
-    const group = UserGroupData.getGroup(groupId, userId)
+    const event = await eventsData.getEventsById(eventId)
+    const group = await UserGroupData.getGroup(groupId, userId)
     await UserGroupData.addEventToGroup(group, event, userId)
-}   
+}
 
 export async function removeEventFromGroup(groupId, eventName, userToken){
     const userId = await UserGroupData.getUserId(userToken)
