@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "312351bc-b3a7-4e1f-a809-65b4ffdcbec4",
+		"_postman_id": "526dfd4d-374f-4a6f-b61a-6f52485ae271",
 		"name": "tp2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30917782"
+		"_exporter_id": "31401724"
 	},
 	"item": [
 		{
@@ -200,7 +200,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"eventId\": \"Z7r9jZ1Adxe8I\",\r\n    \"groupId\": 9\r\n}",
+									"raw": "{\r\n    \"eventId\": \"Z7r9jZ1Adxe8I\",\r\n    \"groupId\": 1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -208,7 +208,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:2003/group/add/2",
+									"raw": "http://localhost:2003/group/add",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -216,8 +216,7 @@
 									"port": "2003",
 									"path": [
 										"group",
-										"add",
-										"2"
+										"add"
 									],
 									"query": [
 										{
@@ -293,6 +292,15 @@
 						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"name7\",\r\n    \"description\": \"teste 1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:2003/group",
 							"protocol": "http",
@@ -302,6 +310,54 @@
 							"port": "2003",
 							"path": [
 								"group"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get group",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2003/group/:groupId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2003",
+							"path": [
+								"group",
+								":groupId"
+							],
+							"variable": [
+								{
+									"key": "groupId",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -324,7 +380,12 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
 							"raw": "http://localhost:2003/group",
@@ -342,9 +403,21 @@
 				},
 				{
 					"name": "list all groups",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:2003/group",
 							"protocol": "http",
@@ -364,6 +437,15 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:2003/group",
 							"protocol": "http",

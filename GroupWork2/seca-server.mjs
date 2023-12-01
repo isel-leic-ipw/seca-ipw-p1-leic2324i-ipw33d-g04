@@ -20,7 +20,7 @@ app.get('/event/list/:s/:p', API.getAllPopularEventsList);
 app.get('/event/search/:name/:s/:p', API.getEventsByName);
 app.post('/group', API.createGroup);
 // app.put('/group', API.editGroup);
-app.get('/group', API.getGroup);
+app.get('/group/:groupId', API.getGroup);
 // app.get('/group/list', API.listAllGroups);
 // app.delete('/group', API.deleteGroup);
 app.put('/group/add', API.addEventToGroup);
