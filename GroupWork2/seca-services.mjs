@@ -29,12 +29,12 @@ export async function editGroup(groupId, editedGroup, userToken) {
         newName: editedGroup.newName,
         newDescription: editedGroup.newDescription
     }
-    await UserGroupData.editGroup(groupId, updatedGroup, userId)
+    return await UserGroupData.editGroup(groupId, updatedGroup, userId)
 }
 
 export async function deleteGroup(groupId, userToken) {
     const userId = await UserGroupData.getUserId(userToken)
-    await UserGroupData.deleteGroup(groupId, userId)
+    return await UserGroupData.deleteGroup(groupId, userId)
 }
 
 export async function addEventToGroup(groupId, eventId, userToken) {
@@ -44,21 +44,19 @@ export async function addEventToGroup(groupId, eventId, userToken) {
     await UserGroupData.addEventToGroup(group, event, userId)
 }
 
-export async function removeEventFromGroup(groupId, eventName, userToken){
+export async function removeEventFromGroup(groupId, eventId, userToken){
     const userId = await UserGroupData.getUserId(userToken)
-    const event = eventsData.getEventByName(eventName)
-    const group = UserGroupData.getGroup(groupId, userId)
-    await UserGroupData.removeEventFromGroup(group, event, userId)
+    return UserGroupData.removeEventFromGroup(groupId, eventId, userId)
 }
 
 export async function listAllGroups(userToken){
     const userId = await UserGroupData.getUserId(userToken)
-    await UserGroupData.listAllGroups(userId)
+    return await UserGroupData.listAllGroups(userId)
 }
 
 export async function getGroup(groupId, userToken){
     const userId = await UserGroupData.getUserId(userToken)
-    await UserGroupData.getGroup(groupId, userId)
+    return await UserGroupData.getGroup(groupId, userId)
 }
 
 async function _getEvent(name, userId, s, p) {

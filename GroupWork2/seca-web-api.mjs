@@ -82,17 +82,17 @@ async function _deleteGroup(req, rsp) {
 }
 
 async function _addEventToGroup(req, rsp) {  
-    const eventId = req.body.eventId
-    const groupId = req.body.groupId
-    const addedEvent = await services.addEventToGroup(groupId, eventId, req.token)
-    return rsp.json(addedEvent)
+  const eventId = req.body.eventId
+  const groupId = req.body.groupId
+  const addedEvent = await services.addEventToGroup(groupId, eventId, req.token)
+  return rsp.json(addedEvent)
 }
 
 async function _removeEventFromGroup (req, rsp) {
-    const groupId = req.params.groupId
-    const eventId = req.params.eventId
-    const removedEvent = await services.removeEventFromGroup(groupId, eventId, req.token)
-    rsp.json(removedEvent)
+  const eventId = req.body.eventId
+  const groupId = req.body.groupId
+  const removedEvent = await services.removeEventFromGroup(groupId, eventId, req.token)
+  rsp.json(removedEvent)
 }
 
 async function _listAllGroups(req, rsp) {
