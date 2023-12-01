@@ -20,28 +20,60 @@ const GROUPS = [
         userId: 1,
         name: "name",
         description: "test 123",
-        events: []
+        events: [
+            {
+                id: "Z7r9jZ1Adxe8I",
+                name: "Rock in Rio Lisboa 2022",
+                date: "2022-06-18T12:00:00Z",
+                segment: "Music",
+                genre: "Rock"
+            }
+        ]
     },
     {
         id: 2,
         userId: 1,
         name: "name2",
         description: "test 456",
-        events: []
+        events: [
+            {
+                id: "Z7r9jZ1Adxe8I",
+                name: "Rock in Rio Lisboa 2022",
+                date: "2022-06-18T12:00:00Z",
+                segment: "Music",
+                genre: "Rock"
+            }
+        ]
     },
     {
-        id: 3,
+        id: 1,
         userId: 2,
         name: "name3",
         description: "test 789",
-        events: []
+        events: [
+            {
+                id: "Z7r9jZ1Adxe8I",
+                name: "Rock in Rio Lisboa 2022",
+                date: "2022-06-18T12:00:00Z",
+                segment: "Music",
+                genre: "Rock"
+            }
+        ]
     },
     {
-        id: 4,
+        id: 2,
         userId: 2,
         name: "name4",
         description: "test 101112",
-        events: []
+        events: [
+            {
+                id: "Z7r9jZ1Adxe8I",
+                name: "Rock in Rio Lisboa 2022",
+                date: "2022-06-18T12:00:00Z",
+                segment: "Music",
+                genre: "Rock"
+            }
+        ]
     }
 ];
 
@@ -91,7 +123,7 @@ export async function createGroup(group) {
         console.log(GROUPS)
         return createdGroup
     }
-    throw errors.ALREADY_EXISTS("group")
+    throw errors.INVALID_ARGUMENT("Group already exists")
 }
 
 export async function editGroup(id, newGroup, userId) {
@@ -123,20 +155,19 @@ export async function addEventToGroup(groupId, event, userId) {
         GROUPS[idx].events.push(event)
         return event
     }
-    throw errors.ALREADY_EXISTS("event")
+    throw errors.INVALID_ARGUMENT("Event already exists")
 }
 
 export async function removeEventFromGroup(groupId, eventId, userId) {
-    const groupIdx = getGroupIdx(groupId, userId)
-    const eventIdx = GROUPS[groupIdx].events.findIndex(e => e.id === eventId)
+    const groupIdx = await getGroupIdx(groupId, userId)
+    const eventIdx = GROUPS[groupIdx]["events"].find(e => e.id === eventId)
     if (eventIdx != -1) {
-        const removedEvent = GROUPS[groupIdx].events.splice(eventIdx, 1)[0]
+        const removedEvent = GROUPS[groupIdx]["events"].splice(eventIdx, 1)[0]
         return removedEvent
     }
     throw errors.NOT_FOUND("eventId")
 }
   
-
 export function listAllGroups() {
     return GROUPS
 }

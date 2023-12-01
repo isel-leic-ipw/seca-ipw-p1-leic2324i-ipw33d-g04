@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fe6282e4-d4f1-4f90-8d7f-2ccfcb2e77b1",
+		"_postman_id": "312351bc-b3a7-4e1f-a809-65b4ffdcbec4",
 		"name": "tp2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "30917782"
@@ -121,17 +121,6 @@
 								"disabled": true
 							}
 						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "",
-									"value": "",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
 						"url": {
 							"raw": "{{event}}list/:s/:p",
 							"host": [
@@ -177,17 +166,6 @@
 								"disabled": true
 							}
 						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "",
-									"value": "",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
 						"url": {
 							"raw": "{{event}}list",
 							"host": [
@@ -208,8 +186,27 @@
 						{
 							"name": "add event",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+											"type": "string"
+										}
+									]
+								},
 								"method": "PUT",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"eventId\": \"Z7r9jZ1Adxe8I\",\r\n    \"groupId\": 9\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
 									"raw": "http://localhost:2003/group/add/2",
 									"protocol": "http",
@@ -236,10 +233,29 @@
 						{
 							"name": "remove event",
 							"request": {
-								"method": "POST",
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"eventId\": \"Z7r9jZ1Adxe8I\",\r\n    \"groupId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "http://localhost:2003/group/remove/2",
+									"raw": "http://localhost:2003/group/remove",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -247,8 +263,7 @@
 									"port": "2003",
 									"path": [
 										"group",
-										"remove",
-										"2"
+										"remove"
 									],
 									"query": [
 										{
@@ -266,6 +281,16 @@
 				{
 					"name": "create group",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"url": {
@@ -277,13 +302,39 @@
 							"port": "2003",
 							"path": [
 								"group"
-							],
-							"query": [
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete group",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "id",
-									"value": "3",
-									"disabled": true
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
 								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:2003/group",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2003",
+							"path": [
+								"group"
 							]
 						}
 					},
@@ -343,7 +394,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"João\",\r\n    \"token\": 301803810\r\n}",
+					"raw": "{\r\n    \"name\": \"Lucas\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
