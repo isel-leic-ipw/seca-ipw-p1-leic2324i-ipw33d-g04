@@ -20,60 +20,28 @@ const GROUPS = [
         userId: 1,
         name: "name",
         description: "test 123",
-        events: [
-            {
-                id: "Z7r9jZ1Adxe8I",
-                name: "Rock in Rio Lisboa 2022",
-                date: "2022-06-18T12:00:00Z",
-                segment: "Music",
-                genre: "Rock"
-            }
-        ]
+        events: []
     },
     {
         id: 2,
         userId: 1,
         name: "name2",
         description: "test 456",
-        events: [
-            {
-                id: "Z7r9jZ1Adxe8I",
-                name: "Rock in Rio Lisboa 2022",
-                date: "2022-06-18T12:00:00Z",
-                segment: "Music",
-                genre: "Rock"
-            }
-        ]
+        events: []
     },
     {
         id: 1,
         userId: 2,
         name: "name3",
         description: "test 789",
-        events: [
-            {
-                id: "Z7r9jZ1Adxe8I",
-                name: "Rock in Rio Lisboa 2022",
-                date: "2022-06-18T12:00:00Z",
-                segment: "Music",
-                genre: "Rock"
-            }
-        ]
+        events: []
     },
     {
         id: 2,
         userId: 2,
         name: "name4",
         description: "test 101112",
-        events: [
-            {
-                id: "Z7r9jZ1Adxe8I",
-                name: "Rock in Rio Lisboa 2022",
-                date: "2022-06-18T12:00:00Z",
-                segment: "Music",
-                genre: "Rock"
-            }
-        ]
+        events: []
     }
 ];
 
@@ -149,11 +117,11 @@ export async function getGroupIdx(id, userId){
 }
 
 export async function addEventToGroup(groupId, event, userId) {
-    const idx = getGroupIdx(groupId, userId)
+    const idx = await getGroupIdx(groupId, userId)
     const isEventInGroup = GROUPS[idx].events.some(u => u.id == event.id)
     if (!isEventInGroup) {
         GROUPS[idx].events.push(event)
-        return event
+        return await event
     }
     throw errors.INVALID_ARGUMENT("Event already exists")
 }

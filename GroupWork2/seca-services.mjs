@@ -40,8 +40,8 @@ export async function deleteGroup(groupId, userToken) {
 export async function addEventToGroup(groupId, eventId, userToken) {
     const userId = await UserGroupData.getUserId(userToken)
     const event = await eventsData.getEventsById(eventId)
-    const group = await UserGroupData.getGroup(groupId, userId)
-    await UserGroupData.addEventToGroup(group, event, userId)
+    //const group = await UserGroupData.getGroup(groupId, userToken)
+    return await UserGroupData.addEventToGroup(groupId, event, userId)
 }
 
 export async function removeEventFromGroup(groupId, eventId, userToken){
