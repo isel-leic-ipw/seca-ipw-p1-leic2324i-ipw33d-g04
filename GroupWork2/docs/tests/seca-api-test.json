@@ -10,57 +10,7 @@
 			"name": "event",
 			"item": [
 				{
-					"name": "event search spec",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
-						"url": {
-							"raw": "{{event}}search/:name/:s/:p",
-							"host": [
-								"{{event}}search"
-							],
-							"path": [
-								":name",
-								":s",
-								":p"
-							],
-							"variable": [
-								{
-									"key": "name",
-									"value": "Hamilton"
-								},
-								{
-									"key": "s",
-									"value": "5"
-								},
-								{
-									"key": "p",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "event search default",
+					"name": "event search",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -112,52 +62,7 @@
 					"response": []
 				},
 				{
-					"name": "event list spec",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "{{event}}list/:s/:p",
-							"host": [
-								"{{event}}list"
-							],
-							"path": [
-								":s",
-								":p"
-							],
-							"variable": [
-								{
-									"key": "s",
-									"value": ""
-								},
-								{
-									"key": "p",
-									"value": ""
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "event list default",
+					"name": "event list",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -516,14 +421,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:2003/group",
+					"raw": "http://localhost:2003/group/list",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "2003",
 					"path": [
-						"group"
+						"group",
+						"list"
 					]
 				}
 			},

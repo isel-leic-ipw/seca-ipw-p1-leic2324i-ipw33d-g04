@@ -135,8 +135,8 @@ export async function removeEventFromGroup(groupId, eventId, userId) {
     throw errors.NOT_FOUND("eventId")
 }
   
-export function listAllGroups() {
-    return GROUPS
+export function listAllGroups(userId) {
+    return GROUPS.filter(u => u.userId == userId)
 }
 
 export function listUsers() {
