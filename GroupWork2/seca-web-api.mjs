@@ -75,17 +75,16 @@ async function _editGroup(req, rsp) {
 }
 
 async function _deleteGroup(req, rsp) {
-  const id = req.params.id
-  const group = services.deleteGroup(id, req.token)
-  if(group) {}
-  rsp.status(404).json(`Group with id ${id} not found`)
+  const id = req.params.id;
+  const groups = await services.deleteGroup(id, req.token);
+  rsp.json(groups)
 }
 
 async function _addEventToGroup(req, rsp) {  
   const eventId = req.body.eventId
   const groupId = req.body.groupId
   const addedEvent = await services.addEventToGroup(groupId, eventId, req.token)
-  return rsp.json(addedEvent)
+  rsp.json(addedEvent)
 }
 
 async function _removeEventFromGroup (req, rsp) {

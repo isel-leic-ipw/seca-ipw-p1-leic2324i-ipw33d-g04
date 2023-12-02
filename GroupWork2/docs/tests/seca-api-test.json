@@ -388,14 +388,21 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:2003/group",
+							"raw": "http://localhost:2003/group/:id",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "2003",
 							"path": [
-								"group"
+								"group",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
 							]
 						}
 					},

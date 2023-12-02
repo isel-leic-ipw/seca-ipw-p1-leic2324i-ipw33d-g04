@@ -33,7 +33,7 @@ export async function editGroup(groupId, editedGroup, userToken) {
 }
 
 export async function deleteGroup(groupId, userToken) {
-    const userId = await UserGroupData.getUserId(userToken)
+    const userId = await UserGroupData.getUserId(userToken);
     return await UserGroupData.deleteGroup(groupId, userId)
 }
 

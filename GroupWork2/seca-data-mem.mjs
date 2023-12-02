@@ -102,14 +102,13 @@ export async function editGroup(id, newGroup, userId) {
 }
 
 export async function deleteGroup(id, userId) {
-    const idx = getGroupIdx(id, userId)
-    const group = GROUPS[idx]
-    GROUPS.splice(idx,1)[0]
-    return group
+    const idx = await getGroupIdx(id, userId)
+    GROUPS.splice(idx,1)
+    return GROUPS.filter(u => u.userId == userId)
 }
 
 export async function getGroupIdx(id, userId){
-    const idx = GROUPS.findIndex(u => u.id === id && u.userId === userId)
+    const idx = GROUPS.findIndex(u => u.id == id && u.userId == userId)
     if(idx != -1){
         return idx
     }
