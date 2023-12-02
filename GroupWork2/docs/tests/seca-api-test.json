@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "526dfd4d-374f-4a6f-b61a-6f52485ae271",
+		"_postman_id": "592f1dfa-35dd-4dfd-8296-e5bfce9e562b",
 		"name": "tp2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "31401724"
+		"_exporter_id": "30917782"
 	},
 	"item": [
 		{
@@ -88,6 +88,18 @@
 							],
 							"path": [
 								":name"
+							],
+							"query": [
+								{
+									"key": "s",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "p",
+									"value": "",
+									"disabled": true
+								}
 							],
 							"variable": [
 								{
@@ -409,37 +421,6 @@
 					"response": []
 				},
 				{
-					"name": "list all groups",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:2003/group",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "2003",
-							"path": [
-								"group"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "edit group",
 					"request": {
 						"method": "PUT",
@@ -462,13 +443,6 @@
 							"port": "2003",
 							"path": [
 								"group"
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "3",
-									"disabled": true
-								}
 							]
 						}
 					},
@@ -499,6 +473,47 @@
 					"port": "2003",
 					"path": [
 						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list all groups",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:2003/group",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2003",
+					"path": [
+						"group"
 					]
 				}
 			},
