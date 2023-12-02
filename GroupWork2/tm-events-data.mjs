@@ -29,7 +29,6 @@ async function _getEvents(s, p, name = null, type = "name") {
 }
 
 async function fetchEventDetails(events) {
-  console.log(typeof events)
   try {
     return await Promise.all(events);
   } catch (error) {
@@ -59,20 +58,3 @@ function formatEventDetails(event) {
     genre: event.classifications[0].genre.name,
   };
 }
-
-
-// Teste das funções
-/*
-async function main() {
-  try {
-    // const events = await getEventsById(1);
-    const events2 = await getEventsById("Z7r9jZ1AdqAfd");
-    // console.log(events);
-    console.log("-----------------------------------");
-    console.log(events2);
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-main()
-*/

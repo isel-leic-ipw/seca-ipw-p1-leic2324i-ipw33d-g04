@@ -2,8 +2,6 @@ import * as services from './seca-services.mjs'
 import * as userData from './seca-data-mem.mjs'
 import errorToHttp from './errors-to-http.mjs'
 
-export const getAllPopularEventsListByDefault = processRequest(_getAllPopularEventsListByDefault)
-export const getEventsByNameByDefault = processRequest(_getEventsByNameByDefault)
 export const getAllPopularEventsList = processRequest(_getAllPopularEventsList)
 export const getEventsByName = processRequest(_getEventsByName)
 export const createGroup = processRequest(_createGroup)
@@ -23,7 +21,6 @@ function processRequest(reqProcessor) {
       if(!token) {
           rsp.status(401).json("Not authorized")  
       }
-      //req.token = token
       try {
           return await reqProcessor(req, rsp)
       } catch (e) {
@@ -33,23 +30,12 @@ function processRequest(reqProcessor) {
   }
 }
 async function _getAllPopularEventsList(req, rsp) {
-  const events = await services.getAllPopularEventsList(req.token, req.params.s, req.params.p)
+  const events = await services.getAllPopularEventsList(req.token, req.query.s || DEFAULT_S , req.query.p || DEFAULT_P)
   return rsp.json(events)
 }
 
 async function _getEventsByName(req, rsp) {
-  const events = await services.getEventsByName(req.params.name, req.token, req.params.s, req.params.p)
-  if(events)
-      return rsp.json(events)
-  rsp.status(404).json("Event not found")
-}
-async function _getAllPopularEventsListByDefault(req, rsp) {
-  const events = await services.getAllPopularEventsList(req.token, DEFAULT_S, DEFAULT_P)
-  return rsp.json(events)
-}
-
-async function _getEventsByNameByDefault(req, rsp) {
-  const events = await services.getEventsByName(req.params.name, req.token, DEFAULT_S, DEFAULT_P)
+  const events = await services.getEventsByName(req.params.name, req.token, req.query.s || DEFAULT_S, req.query.p || DEFAULT_P)
   if(events)
       return rsp.json(events)
   rsp.status(404).json("Event not found")
@@ -107,7 +93,6 @@ async function _getGroup(req, rsp) {
 
 export function _createUser(req, rsp) {
   const username = req.body.name
-  // const userToken = req.body.token
   if (Object.keys(req.body).length == 0)
     return rsp
       .status(400)
