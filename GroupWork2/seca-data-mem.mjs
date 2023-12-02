@@ -94,11 +94,11 @@ export async function createGroup(group) {
     throw errors.INVALID_ARGUMENT("Group already exists")
 }
 
-export async function editGroup(id, newGroup, userId) {
-    const idx = getGroupIdx(id, userId)
-    if (newGroup.name) GROUPS[idx].name = newGroup.name
-    if (newGroup.description) GROUPS[idx].description = newGroup.description
-    return GROUPS[idx]
+export async function editGroup(newGroup, userId) {
+    const idx = await getGroupIdx(newGroup.groupId, userId) 
+    if (newGroup.newName) GROUPS[idx].name = await newGroup.newName
+    if (newGroup.newDescription) GROUPS[idx].description = await newGroup.newDescription
+    return GROUPS.filter(u => u.userId == userId)
 }
 
 export async function deleteGroup(id, userId) {

@@ -423,11 +423,21 @@
 				{
 					"name": "edit group",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\r\n    \"groupId\": 1,\r\n    \"newName\": \"Music\",\r\n    \"newDescription\": \"Portugal singers\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

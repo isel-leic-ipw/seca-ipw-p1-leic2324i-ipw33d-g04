@@ -23,13 +23,9 @@ export async function createGroup(newGroup, userToken) {
     return await UserGroupData.createGroup(group)
 }
 
-export async function editGroup(groupId, editedGroup, userToken) {
-    const userId = await usersServices.getUserId(userToken)
-    const updatedGroup = {
-        newName: editedGroup.newName,
-        newDescription: editedGroup.newDescription
-    }
-    return await UserGroupData.editGroup(groupId, updatedGroup, userId)
+export async function editGroup(editedGroup, userToken) {
+    const userId = await UserGroupData.getUserId(userToken)
+    return await UserGroupData.editGroup(editedGroup, userId)
 }
 
 export async function deleteGroup(groupId, userToken) {

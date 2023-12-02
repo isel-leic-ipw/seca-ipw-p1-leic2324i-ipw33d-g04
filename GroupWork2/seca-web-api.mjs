@@ -52,11 +52,11 @@ async function _createGroup(req, rsp) {
 
 async function _editGroup(req, rsp) {
   const editedGroup = {
-      newName: req.body.newName,
-      newDescription: req.body.newDescription
+    groupId: req.body.groupId,
+    newName: req.body.newName,
+    newDescription: req.body.newDescription
   }
-  const groupId = req.params.id;
-  const group = await services.editGroup(groupId, editedGroup, req.token)
+  const group = await services.editGroup(editedGroup, req.token)
   rsp.json(group)
 }
 
