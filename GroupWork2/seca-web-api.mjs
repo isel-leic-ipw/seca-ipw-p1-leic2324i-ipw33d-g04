@@ -86,7 +86,7 @@ async function _listAllGroups(req, rsp) {
 }
 
 async function _getGroup(req, rsp) {
-  const groupId = req.params.groupId;
+  const groupId = req.params.id;
   const group = await services.getGroup(groupId, req.token);
   return rsp.json(group)
 }

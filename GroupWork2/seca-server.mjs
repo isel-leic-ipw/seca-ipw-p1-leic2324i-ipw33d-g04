@@ -16,13 +16,13 @@ app.use(express.json())
 
 app.get('/event/list', API.getAllPopularEventsList);
 app.get('/event/search/:name', API.getEventsByName);
+app.put('/group/add', API.addEventToGroup);
+app.delete('/group/remove', API.removeEventFromGroup);
 app.post('/group', API.createGroup);
 app.put('/group', API.editGroup);
 app.get('/group/list', API.listAllGroups);
-app.get('/group/:groupId', API.getGroup);
+app.get('/group/:id', API.getGroup);
 app.delete('/group/:id', API.deleteGroup);
-app.put('/group/add', API.addEventToGroup);
-app.delete('/group/remove', API.removeEventFromGroup);
 app.post('/user', API.createUser);
 
 app.listen(PORT, (err) => {

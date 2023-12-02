@@ -88,7 +88,6 @@ export async function createGroup(group) {
             events: group.events
         }
         GROUPS.push(createdGroup)
-        console.log(GROUPS)
         return createdGroup
     }
     throw errors.INVALID_ARGUMENT("Group already exists")

@@ -32,11 +32,12 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "{{event}}search/:name",
+							"raw": "{{event}}/search/:name",
 							"host": [
-								"{{event}}search"
+								"{{event}}"
 							],
 							"path": [
+								"search",
 								":name"
 							],
 							"query": [
@@ -84,9 +85,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{event}}list",
+							"raw": "{{event}}/list",
 							"host": [
-								"{{event}}list"
+								"{{event}}"
+							],
+							"path": [
+								"list"
 							]
 						}
 					},
@@ -125,22 +129,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:2003/group/add",
-									"protocol": "http",
+									"raw": "{{group}}/add",
 									"host": [
-										"localhost"
+										"{{group}}"
 									],
-									"port": "2003",
 									"path": [
-										"group",
 										"add"
-									],
-									"query": [
-										{
-											"key": "id",
-											"value": "3",
-											"disabled": true
-										}
 									]
 								}
 							},
@@ -163,7 +157,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"eventId\": \"Z7r9jZ1Adxe8I\",\r\n    \"groupId\": 1\r\n}",
+									"raw": "{\r\n    \"eventId\": \"Z7r9jZ1Adxe8I\",\r\n    \"groupId\": 2\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -171,22 +165,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:2003/group/remove",
-									"protocol": "http",
+									"raw": "{{group}}/remove",
 									"host": [
-										"localhost"
+										"{{group}}"
 									],
-									"port": "2003",
 									"path": [
-										"group",
 										"remove"
-									],
-									"query": [
-										{
-											"key": "id",
-											"value": "3",
-											"disabled": true
-										}
 									]
 								}
 							},
@@ -219,14 +203,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:2003/group",
-							"protocol": "http",
+							"raw": "{{group}}",
 							"host": [
-								"localhost"
-							],
-							"port": "2003",
-							"path": [
-								"group"
+								"{{group}}"
 							]
 						}
 					},
@@ -260,19 +239,16 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:2003/group/:groupId",
-							"protocol": "http",
+							"raw": "{{group}}/:id",
 							"host": [
-								"localhost"
+								"{{group}}"
 							],
-							"port": "2003",
 							"path": [
-								"group",
-								":groupId"
+								":id"
 							],
 							"variable": [
 								{
-									"key": "groupId",
+									"key": "id",
 									"value": "1"
 								}
 							]
@@ -305,14 +281,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:2003/group/:id",
-							"protocol": "http",
+							"raw": "{{group}}/:id",
 							"host": [
-								"localhost"
+								"{{group}}"
 							],
-							"port": "2003",
 							"path": [
-								"group",
 								":id"
 							],
 							"variable": [
@@ -342,7 +315,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"groupId\": 1,\r\n    \"newName\": \"Music\",\r\n    \"newDescription\": \"Portugal singers\"\r\n}",
+							"raw": "{\r\n    \"groupId\": 2,\r\n    \"newName\": \"Music\",\r\n    \"newDescription\": \"Portugal singers\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -350,14 +323,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:2003/group",
-							"protocol": "http",
+							"raw": "{{group}}",
 							"host": [
-								"localhost"
-							],
-							"port": "2003",
-							"path": [
-								"group"
+								"{{group}}"
 							]
 						}
 					},
@@ -421,14 +389,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:2003/group/list",
-					"protocol": "http",
+					"raw": "{{group}}/list",
 					"host": [
-						"localhost"
+						"{{group}}"
 					],
-					"port": "2003",
 					"path": [
-						"group",
 						"list"
 					]
 				}
@@ -460,6 +425,11 @@
 		{
 			"key": "event",
 			"value": "http://localhost:2003/event/"
+		},
+		{
+			"key": "group",
+			"value": "http://localhost:2003/group/",
+			"type": "string"
 		}
 	]
 }
