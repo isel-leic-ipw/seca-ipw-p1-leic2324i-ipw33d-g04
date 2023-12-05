@@ -1,4 +1,4 @@
-import * as API from './seca-web-api.mjs'
+import * as API from './web/api/seca-web-api.mjs'
 import express from 'express';
 import swaggerUi from 'swagger-ui-express'
 import yaml from 'yamljs'
@@ -24,7 +24,7 @@ app.get('/group/list', API.listAllGroups);
 app.get('/group/:id', API.getGroup);
 app.delete('/group/:id', API.deleteGroup);
 app.post('/user', API.createUser);
-
+app.use('/site', express.static('./seca-web-site.js'));
 app.listen(PORT, (err) => {
   if (err)
     return console.log('Something bad happened', err);

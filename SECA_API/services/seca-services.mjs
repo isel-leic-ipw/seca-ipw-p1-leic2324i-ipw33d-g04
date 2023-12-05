@@ -1,6 +1,6 @@
 import * as eventsData from './tm-events-data.mjs'
-import * as UserGroupData from './seca-data-mem.mjs'
-import errors from './errors.mjs'
+import * as UserGroupData from '../data/seca-data-mem.mjs'
+import errors from '../errors/errors.mjs'
 
 export async function getAllPopularEventsList(userToken, s, p) {
     const userId = await UserGroupData.getUserId(userToken)

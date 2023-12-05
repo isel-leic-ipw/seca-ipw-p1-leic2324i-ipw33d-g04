@@ -1,6 +1,6 @@
-import * as services from './seca-services.mjs'
-import * as userData from './seca-data-mem.mjs'
-import errorToHttp from './errors-to-http.mjs'
+import * as services from '../../services/seca-services.mjs'
+import * as userData from '../../data/seca-data-mem.mjs'
+import errorToHttp from '../../errors/errors-to-http.mjs'
 
 export const getAllPopularEventsList = processRequest(_getAllPopularEventsList)
 export const getEventsByName = processRequest(_getEventsByName)

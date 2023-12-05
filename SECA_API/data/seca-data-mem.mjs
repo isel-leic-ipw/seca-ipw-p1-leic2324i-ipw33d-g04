@@ -1,5 +1,5 @@
 import crypto from 'node:crypto'
-import errors from './errors.mjs'
+import errors from '../errors/errors.mjs'
 
 const USERS = [
   {
