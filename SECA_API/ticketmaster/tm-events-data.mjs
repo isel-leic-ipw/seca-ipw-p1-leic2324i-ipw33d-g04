@@ -1,6 +1,6 @@
-import './data/seca-data-mem.mjs';
+import '../data/seca-data-mem.mjs';
 import fetch from 'node-fetch';
-import errors from './errors/errors.mjs';
+import errors from '../errors/errors.mjs';
 
 const API_KEY = 'YfmQlHOLFgYdtMQaFbAK7noAe283pmaV';
 

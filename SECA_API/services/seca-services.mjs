@@ -1,4 +1,4 @@
-import * as eventsData from './tm-events-data.mjs'
+import * as eventsData from '../ticketmaster/tm-events-data.mjs'
 import * as UserGroupData from '../data/seca-data-mem.mjs'
 import errors from '../errors/errors.mjs'
 
