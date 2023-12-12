@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport"> 
+      <link rel="stylesheet" href="styles.css">
+      <title>Show Events</title>
+  </head>
+
+  <body>
+  <a href="/home">Home</a>
+
+  <h2>Events</h2>
+
+{{#each events}}
+    <head>Title: {{this.title}}</head>
+    <p>Rank: {{this.rank}}</p>
+    <p>Id: {{this.id}}</p>
+    <p></p>
+   
+{{/each}}
+
+  </body>
+</html>

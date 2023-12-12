@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"> 
+        <link rel="stylesheet" href="styles.css">
+        <title>Groups</title>
+    </head>
+
+    <body>
+        <a href="/home">Home</a>
+        <h2>All Groups</h2>
+
+        <form action="/groups/all">
+            <input type="submit" value="Go">
+        </form>
+
+        <h2>Get Group By Name</h2>
+        <form action="/groups/name/find" method="post">
+            <input type="text" name="name" id="name" placeholder="Insert a Group Name" required>
+            <input type="submit" value="Go">
+        </form>   
+
+
+
+        <h2>Create a Group</h2>
+        <form action="/groups/create" method="post">
+            Name: <input type="text" name="name" id="name" placeholder="Insert a Group Name" required>
+            Description: <input type="text" name="description" id="description" placeholder="Insert a description" required>
+            <input type="submit" value="Go">
+        </form>
+    </body>
+</html>
