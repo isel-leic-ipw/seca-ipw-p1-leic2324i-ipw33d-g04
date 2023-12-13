@@ -12,6 +12,12 @@ export async function getEventsByName(name, userToken, s, p) {
     return await _getEvent(name, userId, s, p)
 }
 
+export async function getEventById(eventId, userToken) {
+    const userId = await UserGroupData.getUserId(userToken)
+    return await eventsData.getEventById(eventId, userId)
+
+}
+
 export async function createGroup(newGroup, userToken) {
     const userId = await UserGroupData.getUserId(userToken)
     const group = {

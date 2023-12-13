@@ -4,6 +4,7 @@ import errorToHttp from '../../errors/errors-to-http.mjs'
 
 export const getAllPopularEventsList = processRequest(_getAllPopularEventsList)
 export const getEventsByName = processRequest(_getEventsByName)
+export const getEventById = processRequest(_getEventById)
 export const createGroup = processRequest(_createGroup)
 export const editGroup = processRequest(_editGroup)
 export const deleteGroup = processRequest(_deleteGroup)
@@ -39,6 +40,11 @@ async function _getEventsByName(req, rsp) {
   if(events)
       return rsp.json(events)
   rsp.status(404).json("Event not found")
+}
+
+async function _getEventById(req, rsp) {
+  const event = await services.getEventById(req.params.id, req.token)
+  return rsp.json(event)
 }
 
 async function _createGroup(req, rsp) {

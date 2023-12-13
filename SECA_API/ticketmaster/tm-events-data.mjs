@@ -14,7 +14,7 @@ export async function getEventsByName(name, s, p) {
   return formatEventsDetails(await fetchEventDetails(events))
 }
 
-export async function getEventsById(eventId) {
+export async function getEventById(eventId) {
   const event = await fetch(`https://app.ticketmaster.com/discovery/v2/events/${eventId}.json?apikey=${API_KEY}`);
   return formatEventDetails(await fetchSingleEventDetails(event))
 }
@@ -46,15 +46,27 @@ async function fetchSingleEventDetails(event) {
 }
 
 function formatEventsDetails(eventDetails) {
-  return eventDetails.map(formatEventDetails);
+  return eventDetails.map(function (event) {
+    return {
+      id: event.id,
+      name: event.name,
+      date: event.dates.start.dateTime,
+      segment: event.classifications[0].segment.name,
+      genre: event.classifications[0].genre.name
+    };
+  });
 }
+
 
 function formatEventDetails(event) {
   return {
-    id: event.id,
     name: event.name,
+    Image: event.images[0].url,
+    salesStart: event.sales.public.startDateTime,
+    salesEnd: event.sales.public.endDateTime,
     date: event.dates.start.dateTime,
     segment: event.classifications[0].segment.name,
     genre: event.classifications[0].genre.name,
+    subGenre: event.classifications[0].subGenre.name,
   };
 }

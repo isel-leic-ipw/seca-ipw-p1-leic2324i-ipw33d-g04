@@ -16,6 +16,7 @@ app.use(express.json())
 
 app.get('/event/list', API.getAllPopularEventsList);
 app.get('/event/search/:name', API.getEventsByName);
+app.get('/event/:id', API.getEventById);
 app.put('/group/add', API.addEventToGroup);
 app.delete('/group/remove', API.removeEventFromGroup);
 app.post('/group', API.createGroup);

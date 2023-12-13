@@ -76,21 +76,15 @@ export async function getUserId(userToken) {
 }
 
 export async function createGroup(group) {
-    const existingGroup = GROUPS.find(obj => {
-        return obj.name == group.name
-    })
-    if(!existingGroup) {
-        const createdGroup = {
-            id: nextGroup++,
-            userId: group.userId,
-            name: group.name,
-            description: group.description,
-            events: group.events
-        }
-        GROUPS.push(createdGroup)
-        return createdGroup
+    const createdGroup = {
+        id: nextGroup++,
+        userId: group.userId,
+        name: group.name,
+        description: group.description,
+        events: group.events
     }
-    throw errors.INVALID_ARGUMENT("Group already exists")
+    GROUPS.push(createdGroup)
+    return createdGroup
 }
 
 export async function editGroup(newGroup, userId) {
