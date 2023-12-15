@@ -1,8 +1,11 @@
 {
   "dependencies": {
+    "@elastic/elasticsearch": "^8.10.0",
     "bootstrap": "^5.3.2",
     "express": "^4.18.2",
     "handlebars": "^4.7.8",
+    "hbs": "^4.2.0",
+    "mocha": "^10.2.0",
     "node-fetch": "^3.3.2",
     "swagger-ui-express": "^5.0.0",
     "yamljs": "^0.3.0"
@@ -15,7 +18,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "supertest",
+    "test": "mocha ./tests/seca-supertest.mjs",
     "start": "node seca-server.mjs"
   },
   "repository": {
