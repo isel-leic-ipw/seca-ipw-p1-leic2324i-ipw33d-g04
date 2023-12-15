@@ -11,18 +11,21 @@
     <a href="/home">Home</a>
 
     <h2>Popular Events</h2>
+    <p>Get a list of the most popular events!</p>
     <form action="/events/popular" method="get">
         <input type="number" name="nr" value="1" placeholder="Insert a limit for the event number">
         <input type="submit" value="Submit">
     </form>
  
     <h2>Search Event by Name</h2>
+    <p>Do you need information about a specific event? Insert your desired event's name here!</p>
     <form action="/events/name" method="get">
         <input type="text" name="en" id="en" placeholder="Insert the event name" required>
         <input type="submit" value="Submit">
     </form>
 
     <h2>Search Event by Id</h2>
+    <p>Insert your desired event's ID here to get its info!</p>
     <form action="/events/id" method="get">
         <input type="text" name="eventId" id="eventId" placeholder="Insert the event ID" required>
         <input type="submit" value="Submit">

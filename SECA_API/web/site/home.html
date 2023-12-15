@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"> 
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport"> 
         <link rel="stylesheet" href="styles.css">
         <title>Events API</title>
     </head>
@@ -11,26 +11,37 @@
         <h1>Events API</h1>
 
         <h2>Create a Username</h2>
+        <p>Create a new username.</p>
         <form action="/users/createUser">
+          <input type="submit" value="Go">
+        </form>
+
+        <h2>Username Details</h2>
+        <p>Get the details of a certain username.</p>
+        <form action="/users/getUser">
           <input type="submit" value="Go">
         </form>
   
         <h2>Login</h2>
+        <p>Login to your account.</p>
         <form action="/users/login">
           <input type="submit" value="Go">
         </form>
 
         <h2>Logout</h2>
+        <p>Logout of your account.</p>
         <form action="/users/logout">
           <input type="submit" value="Go">
         </form>
 
         <h2>Events</h2>
+        <p>Check all types of information regarding events.</p>
         <form action="/home/events">
           <input type="submit" value="Go">
         </form>
 
         <h2>Groups</h2>
+        <p>Check all types of information regarding groups.</p>
         <form action="/home/groups">
           <input type="submit" value="Go">
         </form>
