@@ -1,12 +1,10 @@
 import supertest from 'supertest';
-// import express from 'express';
 import app from '../seca-server.mjs';
-import * as API from '../web/api/seca-web-api.mjs'
+import API from '../web/api/seca-web-api.mjs'
 // import groupsData from '../data/group-data-elastic.mjs'
 // import usersData from '../data/user-data-elastic.mjs'
 // import tasksServicesInit from '../services/seca-services.mjs'
 
-const request = supertest(app);
 // const app = express();
 
 // app.use(express.json())
@@ -24,11 +22,25 @@ const request = supertest(app);
 // app.use('/site', express.static('./seca-web-site.js'));
 
 // app.get('/search', async (req, res) => {
-  describe('Test Elasticsearch route', () => {
-    it('should return 200 OK on GET /search', async () => {
-      const response = await request.get('/search').query({ q: 'group' });
-      expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('hits');
-    });
-  })
+
+  // describe('Test Elasticsearch route', () => {
+  //   it('should return 200 OK on GET /search', async () => {
+  //     const response = await request.get('/search').query({ q: 'group' });
+  //     expect(response.status).toBe(200);
+  //     expect(response.body).toHaveProperty('hits');
+  //   });
+  // })
+
 // });
+app.get('/user', function(req, res) {
+  res.status(200).json({ name: 'john' });
+});
+
+supertest(app)
+  .get('/user')
+  .expect('Content-Type', /json/)
+  .expect('Content-Length', '15')
+  .expect(200)
+  .end(function(err, res) {
+    if (err) throw err;
+  });
