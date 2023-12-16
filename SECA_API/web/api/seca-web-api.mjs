@@ -5,7 +5,6 @@ import errorToHttp from '../../errors/errors-to-http.mjs'
 const DEFAULT_S = 30
 const DEFAULT_P = 1
 export default function(services) {
-  // const data = services(userData)
   if(!services)
       throw errors.INVALID_ARGUMENT("Services")
 
@@ -112,12 +111,9 @@ async function _createUser(req, rsp) {
     return rsp
       .status(400)
       .json({ message: "[WA] No user info was provided. Try again." });
-  // if(userData.addUser(username)) {
-  //     const u = userData.listUsers()
-  //     return rsp.status(201).json({"user-token": u[u.length - 1].token})
-  // } 
-  if(userData().addUser(username)) {
-    const u = userData().listUsers()
+  const add_user = await services.createUser(username)
+  if(add_user) {
+    const u = await services.listUsers()
     return rsp.status(201).json({"user-token": u[u.length - 1].token})
   } 
 

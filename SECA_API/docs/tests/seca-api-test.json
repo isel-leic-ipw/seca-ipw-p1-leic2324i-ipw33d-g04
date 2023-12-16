@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "592f1dfa-35dd-4dfd-8296-e5bfce9e562b",
-		"name": "tp2",
+		"name": "tp2_ipw",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "30917782"
 	},
@@ -91,6 +91,46 @@
 							],
 							"path": [
 								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "event details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{event}}/:id",
+							"host": [
+								"{{event}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "G5v0Z9Yc3R8zK"
+								}
 							]
 						}
 					},

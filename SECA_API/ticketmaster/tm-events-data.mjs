@@ -1,4 +1,4 @@
-import '../data/seca-data-mem.mjs';
+// import '../data/seca-data-mem.mjs';
 import fetch from 'node-fetch';
 import errors from '../errors/errors.mjs';
 
@@ -10,6 +10,7 @@ export default function () {
     getEventsByName: getEventsByName,
     getEventById: getEventById
   };
+
   async function getAllPopularEventsList(s, p) {
     const events = await _getEvents(s, p, null, "popular")
     return formatEventsDetails(await fetchEventDetails(events))
@@ -42,6 +43,7 @@ export default function () {
       throw error;
     }
   }
+  
   async function fetchSingleEventDetails(event) {
     try {
       return await event.json();
