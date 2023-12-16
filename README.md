@@ -1,24 +1,17 @@
-# 2º Trabalho Prático 
+# Trabalho Prático 
 
 ## Unidade Curricular de Introdução à Programação na Web
 
-#### Fase de testes da 1ª parte do projeto
+#### 2ª Fase do projeto
 
-Nesta fase procuramos refinar as ideias pensadas, levando em conta os requisitos do enunciado ao pormenor
+Nesta fase procuramos refinar as ideias pensadas da 1ª fase, levando em conta os requisitos do enunciado ao pormenor
 
 Próximas tarefas a serem desenvolvidas:
 
-##### 1 -> Verificar se estão corretas e documentar rotas de API (tipo de solicitação HTTP + URL + conteúdo de resposta de exemplo) com o formato OpenAPI/Swagger.
+##### 1 -> A interface web HTML e CSS deverá ser implementada em um novo arquivo denominado seca-web-site.js que deverá estar no mesmo nível que seca-web-api.js.
 
-##### 2 -> Usar a coleção do Postman (tp2) para testar rotas de API para implementar testes mais completos
-* Para cada rota implementada, verificar se os testes do Postman validam o correto funcionamento daquela rota.
-* Os testes únitários do módulo **seca-web-api.mjs** devem ser executados com base na criação de um mock (sem acesso acesso àAPI Ticketmaster ou a dados armazenados em memória).
+##### 2 -> Crie um novo módulo que substitua seca-data-mem.js para que os dados sejam armazenados em um banco de dados ElasticSearch. Esta alteração não deve implicar nenhuma alteração adicional nos módulos restantes da aplicação além do carregamento do módulo no seca-server. A interação com o ElasticSearch deve ser feita através de sua API HTTP utilizando a função fetch, sem utilizar nenhum módulo de nó específico para ElasticSearch.
 
-##### 3 -> No módulo seca-web-api.mjs testar cada uma das rotas criadas.
+##### 3 -> Melhorar a qualidade do código, bem como a qualidade e quantidade de testes, sejam unitários ou de integração.
 
-##### 4 -> Verificar se os serviços de aplicação implementados no módulo seca-services.mjs estão de acordo com o pedido no enunciado.
-* Os testes únitários do módulo **seca-services.mjs** devem ser executados com base na criação de um mock (sem acesso acesso àAPI Ticketmaster ou a dados armazenados em memória).
-
-##### 5 -> Analisar se estão corretos os módulos de acesso a dados:
-* tm-events-data.mjs - acesso à API Ticketmaster.
-* seca-data-mem.mjs - acessar dados de grupos.
+##### 4 -> [opcional] Criar testes de integração para a API com módulo supertest
