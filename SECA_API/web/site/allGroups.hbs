@@ -14,6 +14,9 @@
     {{#each groups}}
         <head>Group:{{this.name}}</head>
         <p>Description:{{this.description}}</p>
+        <p>Id:{{this.id}}</p>
+        <p>UserId:{{this.userId}}</p>
+        <p>Events:{{this.events}}</p>
 
         <form action="/group" method="post">
             <input type="submit" value="Go">
