@@ -1,4 +1,4 @@
-import userData from '../../data/seca-data-mem.mjs'
+// import userData from '../../data/seca-data-mem.mjs'
 // import services from '../../services/seca-services.mjs'
 import errorToHttp from '../../errors/errors-to-http.mjs'
 
@@ -94,7 +94,6 @@ async function _removeEventFromGroup (req, rsp) {
 }
 
 async function _listAllGroups(req, rsp) {
-  console.log("listAllGroups")	
   const allGroups = await services.listAllGroups(req.token);
   return rsp.json(allGroups);
 }
@@ -114,7 +113,10 @@ async function _createUser(req, rsp) {
   const add_user = await services.createUser(username)
   if(add_user) {
     const u = await services.listUsers()
-    return rsp.status(201).json({"user-token": u[u.length - 1].token})
+    console.log(u)
+    // const d =  u[u.length - 1].token}
+    const d =  u[u.length - 1]._source.token
+    return rsp.status(201).json({"user-token": d})
   } 
 
   rsp.status(400).json("User already exists")

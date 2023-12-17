@@ -1,32 +1,47 @@
     // Module manages application users data.
-// In this specific module, data is stored ElasticSearch
+// In this specific module, data is stored in ElasticSearch
 
 import {get, post, del, put} from './fetch-wrapper.mjs'
 import uriManager from './seca-data-elastic.mjs'
-
+import crypto from 'node:crypto'
 
 export default async function (indexName = 'user') {
 
-    const URI_MANAGER = uriManager(indexName)
+    const URI_MANAGER = await uriManager(indexName)
 
     // Create the index unconditionally. If the index already exists, nothing happiness
     
-
     return {
-        // addUser,
-        getUserByToken,
-        getUserByUsername
+        addUser,
+        listUsers,
+        // getUserByToken,
+        getUserId
     }
 
+    async function addUser(username) {
+        const uri = `${URI_MANAGER.create()}`
+        const a = await listUsers()
+        if( a == [] || !a.find(u => u._source.name == username)){
+            console.log("User not exists yet")
+            await post(uri, {name: username, token: crypto.randomUUID()})
+            return true
+        }
+        return false
+    }
 
+    async function listUsers() {
+        const uri = `${URI_MANAGER.getAll()}`
+        return await get(uri)
+            .then(body => body.hits.hits)
+    }
 
-    async function getUserByToken(token) {
+    async function getUserId(token) {
         return getUserBy("token",  token)
     }
 
-    async function getUserByUsername(username) {
-        return getUserBy("name", username)
-    }
+    // async function getUserByUsername(username) {
+    //     return getUserBy("name", username)
+    // }
 
     async function getUserBy(propName, value) {
         const uri = `${URI_MANAGER.getAll()}?q=${propName}:${value}`

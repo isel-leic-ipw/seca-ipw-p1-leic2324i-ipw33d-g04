@@ -370,6 +370,45 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "list all groups",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{group}}/list",
+							"host": [
+								"{{group}}"
+							],
+							"path": [
+								"list"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -380,7 +419,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Lucas\"\r\n}",
+					"raw": "{\r\n    \"name\": \"Mateus\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -396,45 +435,6 @@
 					"port": "2003",
 					"path": [
 						"user"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "list all groups",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{group}}/list",
-					"host": [
-						"{{group}}"
-					],
-					"path": [
-						"list"
 					]
 				}
 			},

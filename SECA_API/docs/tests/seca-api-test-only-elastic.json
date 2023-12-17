@@ -1,0 +1,671 @@
+{
+	"info": {
+		"_postman_id": "9824ae6b-6353-4088-81dd-748b4a3a2969",
+		"name": "tp2_ipw_seca_data_only_elastic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30917782"
+	},
+	"item": [
+		{
+			"name": "create index",
+			"item": [
+				{
+					"name": "user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Hector\",\r\n    \"token\": \"14d72b99-48f6-48d3-94d3-5a4dcfd96c80\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user}}/_doc/?refresh=wait_for",
+							"host": [
+								"{{user}}"
+							],
+							"path": [
+								"_doc",
+								""
+							],
+							"query": [
+								{
+									"key": "refresh",
+									"value": "wait_for"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "group",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"S790dIwBPVIAKlCD1zxZ\",\r\n    \"name\": \"Lucas\",\r\n    \"description\": \"14d72b99-48f6-48d3-94d3-5a4dcfd96c80\",\r\n    \"events\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{group}}/_doc/?refresh=wait_for",
+							"host": [
+								"{{group}}"
+							],
+							"path": [
+								"_doc",
+								""
+							],
+							"query": [
+								{
+									"key": "refresh",
+									"value": "wait_for"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "delete index",
+			"item": [
+				{
+					"name": "user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user}}",
+							"host": [
+								"{{user}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "group",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{group}}",
+							"host": [
+								"{{group}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "group",
+			"item": [
+				{
+					"name": "event manipulation",
+					"item": [
+						{
+							"name": "add event",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"eventId\": \"Z7r9jZ1Adxe8I\",\r\n    \"groupId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{group}}/add",
+									"host": [
+										"{{group}}"
+									],
+									"path": [
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "remove event",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"eventId\": \"Z7r9jZ1Adxe8I\",\r\n    \"groupId\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{group}}/remove",
+									"host": [
+										"{{group}}"
+									],
+									"path": [
+										"remove"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "create group",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"name7\",\r\n    \"description\": \"teste 1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{group}}/_doc/?refresh=wait_for",
+							"host": [
+								"{{group}}"
+							],
+							"path": [
+								"_doc",
+								""
+							],
+							"query": [
+								{
+									"key": "refresh",
+									"value": "wait_for"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get group",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{group}}/_doc/1",
+							"host": [
+								"{{group}}"
+							],
+							"path": [
+								"_doc",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete group",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{group}}/_doc/1?refresh=wait_for",
+							"host": [
+								"{{group}}"
+							],
+							"path": [
+								"_doc",
+								"1"
+							],
+							"query": [
+								{
+									"key": "refresh",
+									"value": "wait_for"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit group",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"groupId\": 2,\r\n    \"newName\": \"Music\",\r\n    \"newDescription\": \"Portugal singers\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{group}}/_doc/1?refresh=wait_for",
+							"host": [
+								"{{group}}"
+							],
+							"path": [
+								"_doc",
+								"1"
+							],
+							"query": [
+								{
+									"key": "refresh",
+									"value": "wait_for"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list all groups",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{group}}/_search",
+							"host": [
+								"{{group}}"
+							],
+							"path": [
+								"_search"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Lucas\",\r\n    \"token\": \"14d72b99-48f6-48d3-94d3-5a4dcfd96c80\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user}}/_doc/?refresh=wait_for",
+							"host": [
+								"{{user}}"
+							],
+							"path": [
+								"_doc",
+								""
+							],
+							"query": [
+								{
+									"key": "refresh",
+									"value": "wait_for"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user}}/_doc/1",
+							"host": [
+								"{{user}}"
+							],
+							"path": [
+								"_doc",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user}}/_search",
+							"host": [
+								"{{user}}"
+							],
+							"path": [
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"groupId\": 2,\r\n    \"newName\": \"Music\",\r\n    \"newDescription\": \"Portugal singers\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user}}/_doc/1?refresh=wait_for",
+							"host": [
+								"{{user}}"
+							],
+							"path": [
+								"_doc",
+								"1"
+							],
+							"query": [
+								{
+									"key": "refresh",
+									"value": "wait_for"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14d72b99-48f6-48d3-94d3-5a4dcfd96c80",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user}}/_doc/1?refresh=wait_for",
+							"host": [
+								"{{user}}"
+							],
+							"path": [
+								"_doc",
+								"1"
+							],
+							"query": [
+								{
+									"key": "refresh",
+									"value": "wait_for"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "event",
+			"value": "http://localhost:9200/event"
+		},
+		{
+			"key": "group",
+			"value": "http://localhost:9200/group",
+			"type": "string"
+		},
+		{
+			"key": "user",
+			"value": "http://localhost:9200/user",
+			"type": "string"
+		}
+	]
+}
