@@ -2,201 +2,144 @@ import { group } from 'console'
 import { json } from 'express'
 import url from 'url'
 import crypto from 'crypto'
-const currentDir = url.fileURLToPath(new URL('.', import.meta.url))
-let authentication = false
+import errorToHttp from '../../errors/errors-to-http.mjs'
 
+const currentDir = url.fileURLToPath(new URL('.', import.meta.url))
+
+const DEFAULT_S = 30
+const DEFAULT_P = 1
 export default function (services) {
   return {
-    getAllPopularEventsList: processRequest(getAllPopularEventsList),
-    getEventsByName: processRequest(getEventsByName),
-    getEventById: processRequest(getEventById),
-    createGroup: processRequest(createGroup),
-    editGroup: processRequest(editGroup),
-    deleteGroup: processRequest(deleteGroup),
-    addEventToGroup: processRequest(addEventToGroup),
-    removeEventFromGroup: processRequest(removeEventFromGroup),
-    listAllGroups: processRequest(listAllGroups),
-    getGroup: processRequest(getGroup),
+    getAllPopularEventsList: processRequest(_getAllPopularEventsList),
+    getEventsByName: processRequest(_getEventsByName),
+    getEventById: processRequest(_getEventById),
+    createGroup: processRequest(_createGroup),
+    editGroup: processRequest(_editGroup),
+    deleteGroup: processRequest(_deleteGroup),
+    addEventToGroup: processRequest(_addEventToGroup),
+    removeEventFromGroup: processRequest(_removeEventFromGroup),
+    listAllGroups: processRequest(_listAllGroups),
+    getGroup: processRequest(_getGroup),
+    createUser: _createUser
   }
 
   function processRequest(reqProcessor) {
     return async function(req, rsp) {
-        const token =  getToken(req)
+        const token = getToken(req)
         if(!token) {
-            rsp
-                .status(401)
-                .json({error: `Invalid authentication token`})
+            rsp.status(401).json("Not authorized")  
         }
         try {
             return await reqProcessor(req, rsp)
         } catch (e) {
             const rspError = errorToHttp(e)
             rsp.status(rspError.status).json(rspError.body)
-            console.log(e)
         }
     }
-}
-
-  async function getHome (request, response) {
-    response.render('home', { title: 'Home', home: true, auth: authentication, user:request.user })
   }
 
-  async function getCss (request, response) {
-    try {
-      const htmlFileLocation = currentDir + 'public/site.css'
-      response.sendFile(htmlFileLocation)
-    } catch (error) {
-      response.status(error.code).send({ error: error.msg })
+  // async function getCss (req, rsp) {
+  //   try {
+  //     const htmlFileLocation = currentDir + '/styles.css'
+  //     rsp.sendFile(htmlFileLocation)
+  //   } catch (error) {
+  //     rsp.status(error.code).send({ error: error.msg })
+  //   }
+  // }
+
+  async function _createUser(req, rsp) {
+    const username = req.body.name
+    if (Object.keys(req.body).length == 0)
+      return rsp
+        .status(400)
+        .json({ message: "[WA] No user info was provided. Try again." });
+    const add_user = await services.createUser(username)
+    if(add_user) {
+      const u = await services.listUsers()
+      console.log(u)
+      // const d =  u[u.length - 1].token}
+      const d =  u[u.length - 1]._source.token
+      return rsp.status(201).json({"user-token": d})
+    } 
+    rsp.status(400).json("User already exists")
     }
-  }
-
 
   // groups
-  async function getGroup (request, response) {
-    try {
-      const id = request.body.id
-      const token = request.user.token
-      const group = await services.getGroup(id, token)
-      return {
-        name: 'group',
-        data: {
-          id: group.id,
-          name: group.name,
-          description: group.description,
-          events: group.movies
-        }
-      }
-    } catch (error) {
-      return { name: 'Error', data: error }
-    }
+  async function _getGroup(req, rsp) {
+    const groupId = req.params.id;
+    const group = await services.getGroup(groupId, req.token);
+    return rsp.render ('group', {title: `Group ${groupId} details`,group: group})
   }
 
-  async function createGroup (request, response) {
-    try {
-      const id = crypto.randomUUID()
-      const name = request.body.name
-      const description = request.body.description
-      const token = request.user.token
-      const group = await services.createGroup({ id, name, description }, token)
-      return {
-        name: 'group',
-        data: {
-          id: group.id,
-          name: group.name,
-          description: group.description,
-          events: group.movies
-        }
-      }
-    } catch (error) {
-      console.log(error)
-      return { name: 'Error', data: {msg:error.msg, code: error.code }
+  async function _createGroup(req, rsp) {
+    const newGroup = {
+      name: req.body.name,
+      description: req.body.description
     }
-  }
-}
-
-  async function listAllGroups (request, response) {
-    try {
-      const token = request.user.token
-      const groups = await services.getAllGroups(token)
-      return { name: 'allGroups', data: { groups } }
-    } catch (error) {
-      return { name: 'Error', data: error }
-    }
+    const group = await services.createGroup(newGroup, req.token)
+    rsp.redirect("/site/group/")
   }
 
-  async function deleteGroup (request, response) {
-    try {
-      const id = request.body.id
-      const token = request.user.token
-      await services.deleteGroup(id, token)
-      response.redirect('/home/groups')
-    } catch (error) {
-      return { name: 'Error', data: error }
-    }
+  async function _listAllGroups (req, rsp) {
+    const allGroups = await services.listAllGroups(req.token);
+    rsp.render('group', {title: "All groups", groups: allGroups})
   }
 
-  async function addEventToGroup (request, response) {
-    try {
-      const eventid = request.body.movieId
-      const groupId = request.body.groupId
-      const token = request.user.token 
-      const addedEvent = await services.addEventToGroup(groupId, eventid, token)
-      return {
-        name: 'group',
-        data: {
-          id: addedEvent.id,
-          name: addedEvent.name,
-          description: addedEvent.description,
-          events: addedEvent.events
-        }
-      }
-    } catch (error) {
-      return { name: 'Error', data: error }
-    }
+  async function _deleteGroup (req, rsp) {
+    const id = req.body.id
+    const token = req.user.token
+    const group = await services.deleteGroup(id, token)
+    rsp.redirect("/site/group/")
   }
 
-  async function removeEventFromGroup (request, response) {
-    try {
-      const groupid = request.body.groupId
-      const eventid = request.body.movieId
-      const token = request.user.token 
-      const removedEvent = await services.removeEventFromGroup(
-        groupid,
-        eventid,
-        token
-      )
-      return {
-        name: 'group',
-        data: {
-          id: removedEvent.id,
-          name: removedEvent.name,
-          description: removedEvent.description,
-          events: removedEvent.events
-        }
-      }
-    } catch (error) {
-      return { name: 'Error', data: error }
-    }
+  async function _addEventToGroup (req, rsp) {
+    const eventId = req.body.eventId
+    const groupId = req.body.groupId
+    const addedEvent = await services.addEventToGroup(groupId, eventId, req.token)
+    rsp.redirect("/site/group/")
   }
-  async function editGroup(req, rsp) {
+
+  async function _removeEventFromGroup (req, rsp) {
+    const eventId = req.body.eventId
+    const groupId = req.body.groupId
+    const removedEvent = await services.removeEventFromGroup(groupId, eventId, req.token)
+    rsp.redirect("/site/group/")
+  }
+  async function _editGroup(req, rsp) {
     const newGroup = {
         title: req.body.title,
         description: req.body.description
     }
     const group = await services.editGroup(req.params.id, newGroup, req.token)
-    rsp.redirect("/site/events/")
-}
+    rsp.redirect("/site/group/")
+  }
 
 
   // events
-
-  async function getAllPopularEventsList (request, response) {
-    try {
-      const events = await services.getAllPopularEventsList(request.query.nr)
-      return { name: 'showMovies', data: { events } }
-    } catch (error) {
-      return { name: 'Error', data: error }
-    }
+  async function _getAllPopularEventsList(req, rsp) {
+    const events = await services.getAllPopularEventsList(req.token, req.query.s || DEFAULT_S , req.query.p || DEFAULT_P)
+    rsp.render('events', {title: "Popular events", events: events})
+  }
+  
+  async function _getEventsByName(req, rsp) {
+    const events = await services.getEventsByName(req.params.name, req.token, req.query.s || DEFAULT_S, req.query.p || DEFAULT_P)
+    if(events)
+      rsp.render('events', {title: "Events by name provided", events: events})
+    rsp.status(404).json("Event not found")
+  }
+  
+  async function _getEventById(req, rsp) {
+    const event = await services.getEventById(req.params.id, req.token)
+    rsp.render('event', {title: `Event ${req.params.id} details`, event: event})
   }
 
-  async function getEventById (request, response) {
-    try {
-      const id = request.params.id
-      const events = await services.getEventById(id)
-      return { name: 'showEvents', data: { events: [events] } }
-    } catch (error) {
-      return { name: 'Error', data: error }
+  function getToken(req) {
+    const BEARER_STR = "Bearer "
+    const tokenHeader = req.get("Authorization")
+    if(!(tokenHeader && tokenHeader.startsWith(BEARER_STR) && tokenHeader.length > BEARER_STR.length)) {
+      return null
     }
-  }
-
-  async function getEventsByName (request, response) {
-    try {
-      const movie = request.params.moviename
-      const movies = await services.getEventsByName(movie, request.query.nr)
-      return { name: 'showMovies', data: { movies } }
-    } catch (error) {
-      return { name: 'Error', data: error }
-    }
-  }
-
+    req.token = tokenHeader.split(" ")[1]
+    return req.token
+  } 
 }
