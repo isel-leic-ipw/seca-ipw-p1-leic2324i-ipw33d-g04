@@ -13,6 +13,7 @@ export default async function (indexName = 'user') {
     
 
     return {
+        // addUser,
         getUserByToken,
         getUserByUsername
     }
@@ -24,18 +25,25 @@ export default async function (indexName = 'user') {
     }
 
     async function getUserByUsername(username) {
-        return getUserBy("username", username)
+        return getUserBy("name", username)
     }
 
     async function getUserBy(propName, value) {
         const uri = `${URI_MANAGER.getAll()}?q=${propName}:${value}`
         return get(uri)
-            .then(body => body.hits.hits.map(createTaskFromElastic))
+            .then(body => body.hits.hits.map(createUserFromElastic))
     }
 
-    function createUserFrom(taskElastic) {
+    function createUserFromElastic(taskElastic) {
         let user = Object.assign({id: taskElastic._id}, taskElastic._source)
         return user
     }
-
+    // function createTaskFromElastic(taskElastic) {
+    //     let user = Object.assign({
+    //         id: taskElastic._id,
+    //         userId: taskElastic._source.userId,
+    //         name: taskElastic._source.name,
+    //     }, taskElastic._source)
+    //     return user
+    // }
 }

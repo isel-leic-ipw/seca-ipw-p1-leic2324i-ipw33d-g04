@@ -23,10 +23,10 @@ export default async function (indexName = 'group') {
             }
             }
         return post(URI_MANAGER.getAll(), query)
-            .then(body => body.hits.hits.map(createGroup
-                ))
+            .then(body => body.hits.hits.map(createGroup))
     }    
-    async function getTasksBody(userId) {
+
+    async function getGroupsBody(userId) {
         const query = {
             query: {
               match: {
@@ -35,11 +35,11 @@ export default async function (indexName = 'group') {
             }
           }
         return post(URI_MANAGER.getAll(), query)
-            .then(body => body.hits.hits.map(createGroup
-                ))
+            .then(body => body.hits.hits.map(createGroup)
+)
     }
 
-    async function getTasksQuery(userId) {
+    async function getGroupsQuery(userId) {
         const uri = `${URI_MANAGER.getAll()}?q=userId:${userId}`
         return get(uri)
             .then(body => body.hits.hits.map(createGroup))
@@ -53,7 +53,6 @@ export default async function (indexName = 'group') {
         return put(URI_MANAGER.update(userId), group)
     }
 
-// TODO: change delete method
     async function deleteGroup(taskId) {
         return del(URI_MANAGER.delete(taskId))
             .then(body => body._id)

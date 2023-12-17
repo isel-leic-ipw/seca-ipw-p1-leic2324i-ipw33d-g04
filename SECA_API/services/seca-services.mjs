@@ -1,12 +1,10 @@
-// import eventsData from '../ticketmaster/tm-events-data.mjs'
-// import UserGroupData from '../data/seca-data-mem.mjs'
-// import UserGroupElastic from '../data/seca-data-elastic.mjs'
+import UserElastic from '../data/seca-user-data-elastic.mjs'
 import errors from '../errors/errors.mjs'
 
-export default function(UserGroupData, UserGroupElastic, eventsData) {
+export default function(UserGroupData, GroupElastic, eventsData) {
     if(!eventsData)
-        throw errors.INVALID_ARGUMENT("events data")
-    return{
+        throw errors.INVALID_ARGUMENT("events data")   
+    return {
         getAllPopularEventsList: getAllPopularEventsList,
         getEventsByName: getEventsByName,
         getEventById: getEventById,
@@ -20,61 +18,71 @@ export default function(UserGroupData, UserGroupElastic, eventsData) {
         getGroup: getGroup,
         createUser: createUser
     }
+
     async function getAllPopularEventsList(userToken, s, p) {
         const userId = await UserGroupData().getUserId(userToken)
+        // const userId = await GroupElastic('group').getUserId(userToken)
         return await _getEvent("popular events", userId, s, p)
     }
 
     async function getEventsByName(name, userToken, s, p) {
         const userId = await UserGroupData().getUserId(userToken)
+        // const userId = await GroupElastic('group').getUserId(userToken)
         return await _getEvent(name, userId, s, p)
     }
 
     async function getEventById(eventId, userToken) {
         const userId = await UserGroupData().getUserId(userToken)
+        // const userId = await GroupElastic().getUserId(userToken)
         return await eventsData().getEventById(eventId, userId)
-
     }
 
     async function createGroup(newGroup, userToken) {
         const userId = await UserGroupData().getUserId(userToken)
+        // const userId = await GroupElastic().getUserId(userToken)
         const group = {
             userId: userId,
             name: newGroup.name,
             description: newGroup.description,
-            events: []          
+            events: []     
         }
         return await UserGroupData().createGroup(group)
     }
 
     async function editGroup(editedGroup, userToken) {
         const userId = await UserGroupData().getUserId(userToken)
+        // const userId = await GroupElastic().getUserId(userToken)
         return await UserGroupData().editGroup(editedGroup, userId)
     }
 
     async function deleteGroup(groupId, userToken) {
         const userId = await UserGroupData().getUserId(userToken);
+        // const userId = await GroupElastic().getUserId(userToken);
         return await UserGroupData().deleteGroup(groupId, userId)
     }
 
     async function addEventToGroup(groupId, eventId, userToken) {
         const userId = await UserGroupData().getUserId(userToken)
+        // const userId = await GroupElastic().getUserId(userToken)
         const event = await eventsData().getEventsById(eventId)
         return await UserGroupData().addEventToGroup(groupId, event, userId)
     }
 
     async function removeEventFromGroup(groupId, eventId, userToken){
         const userId = await UserGroupData().getUserId(userToken)
+        // const userId = await GroupElastic().getUserId(userToken)
         return UserGroupData().removeEventFromGroup(groupId, eventId, userId)
     }
 
     async function listAllGroups(userToken){
         const userId = await UserGroupData().getUserId(userToken)
+        // const userId = await GroupElastic().getUserId(userToken)
         return await UserGroupData().listAllGroups(userId)
     }
 
     async function getGroup(groupId, userToken){
         const userId = await UserGroupData().getUserId(userToken)
+        // const userId = await GroupElastic().getUserId(userToken)
         return await UserGroupData().getGroup(groupId, userId)
     }
 
@@ -90,9 +98,13 @@ export default function(UserGroupData, UserGroupElastic, eventsData) {
         throw errors.NOT_AUTHORIZED(`User ${userId}`, `Event with name ${name}`)
     }
     async function createUser(user) {
-        return await UserGroupData().addUser(user)
+        const data = await UserGroupData().addUser(user)
+        // const data = await UserElastic().addUser(user)
+        return data
     }
     async function listUsers() {
-        return await UserGroupData().listUsers()
+        const users = await UserGroupData().listUsers()
+        // const users = await UserElastic().listUsers()
+        return users
     }
 }

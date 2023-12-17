@@ -46,9 +46,9 @@ const GROUPS = [
 ];
 
 
-let nextId = USERS.length+1
+let nextUserId = USERS.length+1
 
-let nextGroup = GROUPS.length + 1
+let nextGroupId = GROUPS.length + 1
 
 export default function() {
     return {
@@ -66,7 +66,7 @@ export default function() {
     async function addUser(username) {
         if(!USERS.find(u => u.name == username)) {
             const user = {
-                id: nextId++,
+                id: nextUserId++,
                 name: username,
                 token: crypto.randomUUID()
             }
@@ -89,7 +89,7 @@ export default function() {
 
     async function createGroup(group) {
         const createdGroup = {
-            id: nextGroup++,
+            id: nextGroupId++,
             userId: group.userId,
             name: group.name,
             description: group.description,

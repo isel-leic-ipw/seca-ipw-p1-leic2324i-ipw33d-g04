@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "592f1dfa-35dd-4dfd-8296-e5bfce9e562b",
-		"name": "tp2_ipw",
+		"name": "tp2_ipw_seca_data_mem",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "30917782"
 	},
@@ -464,11 +464,11 @@
 	"variable": [
 		{
 			"key": "event",
-			"value": "http://localhost:2003/event/"
+			"value": "http://localhost:2003/event"
 		},
 		{
 			"key": "group",
-			"value": "http://localhost:2003/group/",
+			"value": "http://localhost:2003/group",
 			"type": "string"
 		}
 	]
