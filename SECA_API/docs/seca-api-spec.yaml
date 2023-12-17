@@ -98,7 +98,35 @@ paths:
         400:
           $ref: "#/components/responses/400BadRequest"
         404:
-          $ref: "#/components/responses/404NotFound"  
+          $ref: "#/components/responses/404NotFound"
+  /event/{id}:
+    get:
+      tags:
+      - event
+      summary: get event
+      description: By passing it's id
+      operationId: getEventById
+      security: 
+        - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: ID of a event
+        required: true
+        schema:
+          minimum: 1
+          type: string
+      responses:
+        200:
+          description: get event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        400:
+          $ref: "#/components/responses/400BadRequest"
+        404:
+          $ref: "#/components/responses/404NotFound"          
   /group/add:
     put:
       tags:
