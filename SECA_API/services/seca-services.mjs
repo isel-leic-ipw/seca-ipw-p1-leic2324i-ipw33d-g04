@@ -100,13 +100,13 @@ export default function(UserGroupData, GroupElastic, eventsData) {
 
     async function createUser(user) {
         // const d = await UserGroupData().addUser(user)
-        const d = await UserElastic.addUser(user)
+        const d = await USER_ELASTIC.addUser(user)
         return d
     }
 
     async function listUsers() {
         // const u = await UserGroupData().listUsers()
-        const u = await UserElastic.listUsers()
+        const u = await USER_ELASTIC.listUsers()
         return u
     }
 }

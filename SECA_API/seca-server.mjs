@@ -14,7 +14,7 @@ import hbs from 'hbs'
 var app = express();
 export default app; // para testes
 const currentFileDir = url.fileURLToPath(new URL('.', import.meta.url));
-const swaggerDocument = yaml.load('./docs/seca-api-spec.yaml')
+const swaggerDocument = yaml.load(`${currentFileDir}/docs/seca-api-spec.yaml`)
 const SERVICES = services(data_mem, group_elastic, ticketmaster)
 const API = api(SERVICES)
 const WEB = web(SERVICES)
@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use(cors())
 app.use(express.json())
-// app.use(express.urlencoded())
+app.use(express.urlencoded())
 app.use('/site', express.static(`${currentFileDir}/web/site`))
 
 app.set('view engine', 'hbs')

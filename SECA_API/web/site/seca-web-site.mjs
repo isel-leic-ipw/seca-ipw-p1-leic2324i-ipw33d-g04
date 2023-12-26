@@ -49,6 +49,7 @@ export default function (services) {
 
   async function _createUser(req, rsp) {
     const username = req.body.name
+    console.log(username)
     if (Object.keys(req.body).length == 0)
       return rsp
         .status(400)
