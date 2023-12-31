@@ -11,16 +11,15 @@
   <a href="/site/home.html">Home</a>
   <h2>All Groups</h2>
 
-    {{#each groups}}
-        <head>Group:{{this.name}}</head>
-        <p>Description:{{this.description}}</p>
-        <p>Id:{{this.id}}</p>
-        <p>UserId:{{this.userId}}</p>
-        <p>Events:{{this.events}}</p>
+  {{#each groups}}
+    <head>Group:{{name}}</head>
+    <p>Description:{{description}}</p>
+    <p>Id:{{id}}</p>
+    <p>UserId:{{userId}}</p>
+    <p>Events:{{events}}</p>
+  {{/each}}
 
-        <form action="/group" method="post">
-            <input type="submit" value="Go">
-        </form>
-    {{/each}}
-  </body>
+  {{!-- <form action="/group" method="post">
+    <input type="submit" value="Go">
+  </form> --}}
 </html>

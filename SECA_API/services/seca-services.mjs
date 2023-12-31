@@ -39,51 +39,66 @@ export default function(UserGroupData, GroupElastic, eventsData) {
 
     async function createGroup(newGroup, userToken) {
         // const userId = await UserGroupData().getUserId(userToken)
-        const userId = USER_ELASTIC.getUserId(userToken)
+        const userId = await USER_ELASTIC.getUserId(userToken)
         const group = {
             userId: userId,
             name: newGroup.name,
             description: newGroup.description,
             events: []     
         }
-        return await UserGroupData().createGroup(group)
+        // const created_group = await UserGroupData().createGroup(group)
+        const created_group = await GroupElastic().createGroup(group)
+        return created_group
     }
 
     async function editGroup(editedGroup, userToken) {
         // const userId = await UserGroupData().getUserId(userToken)
-        const userId = USER_ELASTIC.getUserId(userToken)
-        return await UserGroupData().editGroup(editedGroup, userId)
+        const userId = await USER_ELASTIC.getUserId(userToken)
+        // const edited_group = await UserGroupData().editGroup(editedGroup, userId)
+        const edited_group = await GroupElastic().editGroup(editedGroup, userId)
+        return edited_group
     }
 
     async function deleteGroup(groupId, userToken) {
         // const userId = await UserGroupData().getUserId(userToken);
-        const userId = USER_ELASTIC.getUserId(userToken)
-        return await UserGroupData().deleteGroup(groupId, userId)
+        const userId = await USER_ELASTIC.getUserId(userToken)
+        // const deleted_group = await UserGroupData().deleteGroup(groupId, userId)
+        const deleted_group = await GroupElastic().deleteGroup(groupId, userId)
+        return deleted_group
     }
 
     async function addEventToGroup(groupId, eventId, userToken) {
         // const userId = await UserGroupData().getUserId(userToken)
-        const userId = USER_ELASTIC.getUserId(userToken)
+        const userId = await USER_ELASTIC.getUserId(userToken)
         const event = await eventsData().getEventsById(eventId)
-        return await UserGroupData().addEventToGroup(groupId, event, userId)
+        // const event_added = await UserGroupData().addEventToGroup(groupId, event, userId)
+        const event_added = await GroupElastic().addEventToGroup(groupId, event, userId)
+        return event_added
     }
 
     async function removeEventFromGroup(groupId, eventId, userToken){
         // const userId = await UserGroupData().getUserId(userToken)
-        const userId = USER_ELASTIC.getUserId(userToken)
-        return UserGroupData().removeEventFromGroup(groupId, eventId, userId)
+        const userId = await USER_ELASTIC.getUserId(userToken)
+        // const event_removed = await UserGroupData().removeEventFromGroup(groupId, eventId, userId)
+        const event_removed = await GroupElastic().removeEventFromGroup(groupId, eventId, userId)        
+        return event_removed
     }
 
     async function listAllGroups(userToken){
         // const userId = await UserGroupData().getUserId(userToken)
-        const userId = USER_ELASTIC.getUserId(userToken)
-        return await UserGroupData().listAllGroups(userId)
+        const userId = await USER_ELASTIC.getUserId(userToken)
+        // const groups = await UserGroupData().listAllGroups(userId)
+        const groups = await GroupElastic().listAllGroups(userId)
+        console.log(groups)
+        return groups
     }
 
     async function getGroup(groupId, userToken){
         // const userId = await UserGroupData().getUserId(userToken)
-        const userId = USER_ELASTIC.getUserId(userToken)
-        return await UserGroupData().getGroup(groupId, userId)
+        const userId = await USER_ELASTIC.getUserId(userToken)
+        // const group = await UserGroupData().getGroup(groupId, userId)
+        const group = await GroupElastic().getGroup(groupId, userId)
+        return group
     }
 
     async function _getEvent(name, userId, s, p) {

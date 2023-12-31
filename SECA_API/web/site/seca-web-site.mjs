@@ -99,7 +99,9 @@ export default function (services) {
 
   async function _listAllGroups (req, rsp) {
     const allGroups = await services.listAllGroups(req.token);
-    rsp.render('group', {title: "All groups", groups: allGroups})
+    if(allGroups)
+      return rsp.render('allGroups', {title: "All groups", groups: allGroups})
+    rsp.render('allGroups', {title: "You don't have groups", message: "Groups not found"})
   }
 
   async function _deleteGroup (req, rsp) {
@@ -130,7 +132,6 @@ export default function (services) {
     const group = await services.editGroup(req.params.id, newGroup, req.token)
     rsp.redirect("/site/group/")
   }
-
 
   // events
   async function _getAllPopularEventsList(req, rsp) {
