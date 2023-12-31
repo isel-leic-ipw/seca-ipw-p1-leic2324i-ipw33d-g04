@@ -7,7 +7,6 @@ const DEFAULT_P = 1
 export default function(services) {
   if(!services)
       throw errors.INVALID_ARGUMENT("Services")
-
   return {
     getAllPopularEventsList: processRequest(_getAllPopularEventsList),
     getEventsByName: processRequest(_getEventsByName),

@@ -21,7 +21,7 @@ export default function(UserGroupData, GroupElastic, eventsData) {
 
     async function getAllPopularEventsList(userToken, s, p) {
         // const userId = await UserGroupData().getUserId(userToken)
-        const userId = USER_ELASTIC.getUserId(userToken)
+        const userId = await USER_ELASTIC.getUserId(userToken)
         return await _getEvent("popular events", userId, s, p)
     }
 
@@ -33,7 +33,7 @@ export default function(UserGroupData, GroupElastic, eventsData) {
 
     async function getEventById(eventId, userToken) {
         // const userId = await UserGroupData().getUserId(userToken)
-        const userId = USER_ELASTIC.getUserId(userToken)
+        const userId = await USER_ELASTIC.getUserId(userToken)
         return await eventsData().getEventById(eventId, userId)
     }
 

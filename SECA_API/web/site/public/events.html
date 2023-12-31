@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport"> 
+      <link rel="stylesheet" href="styles.css">
+      <title>Events</title>
+  </head>
+
+  <body>
+    <a href="/site/home.html">Home</a>
+
+    <h2>Popular Events</h2>
+    <p>Get a list of the most popular events!</p>
+    <form action="/site/event/list" method="get">
+      <input type="number" name="s" value="1" placeholder="Insert a page for the popular events">
+      <input type="number" name="p" value="30" placeholder="Insert a size for the events returned">
+      <input type="submit" value="Submit">
+    </form>
+    <h2>Search Event by Name</h2>
+    <p>Do you need information about a specific event? Change to your desired event's name on path!</p>
+    <form action="/site/event/search/Hamilton" method="get">
+      <input type="number" name="s" value="1">
+      <input type="number" name="p" value="30">
+      <input type="submit" value="Submit">
+    </form>
+    <h2>Search Event by Id</h2>
+    <p>Change to your desired event's ID on path!</p>
+    <form action="/site/event/Z7r9jZ1AdJ9bP" method="get">
+      <input type="number" name="s" value="1">
+      <input type="number" name="p" value="30">
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>

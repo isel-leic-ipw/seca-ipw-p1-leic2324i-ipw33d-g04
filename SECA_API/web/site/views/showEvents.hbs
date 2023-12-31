@@ -4,26 +4,36 @@
       <meta charset="UTF-8">
       <meta name="viewport"> 
       <link rel="stylesheet" href="styles.css">
-      <title>Show Events</title>
+      <title>{{title}}</title>
   </head>
 
   <body>
-  <a href="/home">Home</a>
+  <a href="/site/home.html">Home</a>
 
-  <h2>Events</h2>
+  {{#if event}}
+    <h2>Event</h2>
+    <head>Name: {{event.name}}</head>
+    <p>Image: {{event.Image}}</p>
+    <p> Sales start: {{event.salesStart}}</p>
+    <p>Sales end: {{event.salesEnd}}</p>
+    <p>Event dates: {{event.date}}</p>
+    <p>Segment: {{event.segment}}</p>
+    <p>Genre: {{event.genre}}</p>
+    <p>subGenre: {{event.subGenre}}</p>
+    <br></br>
+  {{/if}}
 
-{{#each events}}
-    <head>Name: {{this.name}}</head>
-    <p>ID: {{this.id}}</p>
-    <p>Sales start: {{this.salesStart}}</p>
-    <p>Sales end: {{this.salesEnd}}</p>
-    <p>Event dates: {{this.eventDates}}</p>
-    <p>Segment: {{this.segment}}</p>
-    <p>Genre: {{this.genre}}</p>
-    <p>subGenre: {{this.subGenre}}</p>
-    <p></p>
-   
-{{/each}}
+  {{#if events}}
+    <h2>Events</h2>
+    {{#each events}}
+      <head>Name: {{name}}</head>
+      <p>ID: {{id}}</p>
+      <p>Event dates: {{date}}</p>
+      <p>Segment: {{segment}}</p>
+      <p>Genre: {{genre}}</p>
+      <br></br>
+    {{/each}}
+  {{/if}}
 
   </body>
 </html>

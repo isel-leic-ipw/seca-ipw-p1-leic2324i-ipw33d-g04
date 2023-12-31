@@ -27,12 +27,12 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded())
-app.use('/site', express.static(`${currentFileDir}/web/site`))
+app.use('/site', express.static(`${currentFileDir}/web/site/public`))
 
 app.set('view engine', 'hbs')
 const viewsDir = path.join(currentFileDir, 'web', 'site', 'views')
 app.set('views', viewsDir)
-// const partialsDir = path.join(currentFileDir, 'web', 'site', 'views', 'partials')
+// hbs.registerPartials(path.join(viewsDir, 'partials'))
 
 // web api routes
 app.get('/event/list', API.getAllPopularEventsList);
@@ -50,16 +50,17 @@ app.post('/user', API.createUser);
 // app.get('/site', (req, res) => {
 //   res.sendFile('home.html', { root: `${currentFileDir}/web/site` });
 // });
+
 app.get('/site/event/list', WEB.getAllPopularEventsList);
 app.get('/site/event/search/:name', WEB.getEventsByName);
 app.get('/site/event/:id', WEB.getEventById);
-app.put('/site/group/add', WEB.addEventToGroup);
-app.delete('/site/group/remove', WEB.removeEventFromGroup);
-app.post('/site/group', WEB.createGroup);
-app.put('/site/group', WEB.editGroup);
-app.get('/site/group/list', WEB.listAllGroups);
-app.get('/site/group/:id', WEB.getGroup);
-app.delete('/site/group/:id', WEB.deleteGroup);
+// app.put('/site/group/add', WEB.addEventToGroup);
+// app.delete('/site/group/remove', WEB.removeEventFromGroup);
+// app.post('/site/group', WEB.createGroup);
+// app.put('/site/group', WEB.editGroup);
+// app.get('/site/group/list', WEB.listAllGroups);
+// app.get('/site/group/:id', WEB.getGroup);
+// app.delete('/site/group/:id', WEB.deleteGroup);
 app.post('/site/user', WEB.createUser);
 
 app.listen(PORT, (err) => {
