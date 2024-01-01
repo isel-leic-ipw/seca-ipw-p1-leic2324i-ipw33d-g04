@@ -150,7 +150,7 @@ export default function() {
 
     async function getGroup(groupId, userId){
         const group = GROUPS.find(u => {
-            return u.id == groupId
+            return u.id == groupId && u.userId == userId
         })
         if(group) {
             return group

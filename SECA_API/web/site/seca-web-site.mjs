@@ -85,52 +85,62 @@ export default function (services) {
   async function _getGroup(req, rsp) {
     const groupId = req.params.id;
     const group = await services.getGroup(groupId, req.token);
-    return rsp.render ('group', {title: `Group ${groupId} details`,group: group})
-  }
+    console.log(group) 
+    if (group)
+      return rsp.render ('group', {title: `Group ${groupId} details`, group: group})
+    rsp.render('group', {title: "You don't have groups with this id", message: "Group not found"})
+   }
 
   async function _createGroup(req, rsp) {
     const newGroup = {
       name: req.body.name,
       description: req.body.description
     }
-    const group = await services.createGroup(newGroup, req.token)
-    rsp.redirect("/site/group/")
+    console.log(newGroup)
+    await services.createGroup(newGroup, req.token)
+    console.log("newGroup created")
+    rsp.redirect("/site/group/list")
   }
 
   async function _listAllGroups (req, rsp) {
     const allGroups = await services.listAllGroups(req.token);
+    console.log("groups:")
+    console.log(allGroups)
     if(allGroups)
       return rsp.render('allGroups', {title: "All groups", groups: allGroups})
     rsp.render('allGroups', {title: "You don't have groups", message: "Groups not found"})
   }
 
   async function _deleteGroup (req, rsp) {
-    const id = req.body.id
+    const groupId = req.body.id
     const token = req.user.token
-    const group = await services.deleteGroup(id, token)
-    rsp.redirect("/site/group/")
+    await services.deleteGroup(groupId, token)
+    console.log("Group deleted")
+    rsp.redirect("/site/group/list")
   }
 
   async function _addEventToGroup (req, rsp) {
     const eventId = req.body.eventId
     const groupId = req.body.groupId
-    const addedEvent = await services.addEventToGroup(groupId, eventId, req.token)
-    rsp.redirect("/site/group/")
+    await services.addEventToGroup(groupId, eventId, req.token)
+    rsp.redirect("/site/group/list")
   }
 
   async function _removeEventFromGroup (req, rsp) {
     const eventId = req.body.eventId
     const groupId = req.body.groupId
-    const removedEvent = await services.removeEventFromGroup(groupId, eventId, req.token)
-    rsp.redirect("/site/group/")
+    await services.removeEventFromGroup(groupId, eventId, req.token)
+    rsp.redirect("/site/group/list")
   }
   async function _editGroup(req, rsp) {
-    const newGroup = {
-        title: req.body.title,
-        description: req.body.description
+    const editedGroup = {
+      groupId: req.body.groupId,
+      newName: req.body.name,
+      newDescription: req.body.description
     }
-    const group = await services.editGroup(req.params.id, newGroup, req.token)
-    rsp.redirect("/site/group/")
+    await services.editGroup(editedGroup, req.token)
+    console.log("Group edited")
+    rsp.redirect("/site/group/list")
   }
 
   // events

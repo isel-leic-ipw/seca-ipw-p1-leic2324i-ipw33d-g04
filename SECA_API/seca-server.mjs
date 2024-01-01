@@ -54,13 +54,13 @@ app.post('/user', API.createUser);
 app.get('/site/event/list', WEB.getAllPopularEventsList);
 app.get('/site/event/search/:name', WEB.getEventsByName);
 app.get('/site/event/:id', WEB.getEventById);
-app.put('/site/group/add', WEB.addEventToGroup);
-app.delete('/site/group/remove', WEB.removeEventFromGroup);
-app.post('/site/group', WEB.createGroup);
-app.put('/site/group', WEB.editGroup);
+app.post('/site/group/add', WEB.addEventToGroup);
+app.post('/site/group/remove', WEB.removeEventFromGroup);
+app.post('/site/createGroup', WEB.createGroup);
+app.post('/site/editGroup', WEB.editGroup);
+app.post('/site/deleteGroup', WEB.deleteGroup);
 app.get('/site/group/list', WEB.listAllGroups);
 app.get('/site/group/:id', WEB.getGroup);
-app.delete('/site/group/:id', WEB.deleteGroup);
 app.post('/site/user', WEB.createUser);
 
 app.listen(PORT, (err) => {

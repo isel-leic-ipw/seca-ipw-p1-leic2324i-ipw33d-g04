@@ -4,20 +4,27 @@
       <meta charset="UTF-8">
       <meta name="viewport"> 
       <link rel="stylesheet" href="styles.css">
-      <title>All Groups</title>
+      <title>{{title}}</title>
   </head>
   
   <body>
-  <a href="/site/home.html">Home</a>
-  <h2>All Groups</h2>
+    <a href="/site/home.html">Home</a>
+    <h2>All Groups</h2>
 
-  {{#each groups}}
-    <head>Group:{{name}}</head>
-    <p>Description:{{description}}</p>
-    <p>Id:{{id}}</p>
-    <p>UserId:{{userId}}</p>
-    <p>Events:{{events}}</p>
-  {{/each}}
+    {{#if groups}}
+      {{#each groups}}
+        <head>Group:{{_source.name}}</head>
+        <p>Description:{{_source.description}}</p>
+        <p>Id:{{_id}}</p>
+        <p>UserId:{{_source.userId}}</p>
+        <p>Events:{{_source.events}}</p>
+      {{/each}}
+    {{/if}}
+
+    {{#if message}}
+      <h3>{{message}}</h3>
+    {{/if}}  
+  </body>
 
   {{!-- <form action="/group" method="post">
     <input type="submit" value="Go">

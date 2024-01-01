@@ -40,14 +40,18 @@ export default function(UserGroupData, GroupElastic, eventsData) {
     async function createGroup(newGroup, userToken) {
         // const userId = await UserGroupData().getUserId(userToken)
         const userId = await USER_ELASTIC.getUserId(userToken)
+        console.log(userId)
         const group = {
             userId: userId,
-            name: newGroup.name,
+            name: newGroup.name, 
             description: newGroup.description,
-            events: []     
+            events: []
         }
+        console.log(group)
         // const created_group = await UserGroupData().createGroup(group)
-        const created_group = await GroupElastic().createGroup(group)
+        const g = await GroupElastic()
+        const created_group = await g.createGroup(group)
+        console.log("created_group")
         return created_group
     }
 
@@ -55,7 +59,8 @@ export default function(UserGroupData, GroupElastic, eventsData) {
         // const userId = await UserGroupData().getUserId(userToken)
         const userId = await USER_ELASTIC.getUserId(userToken)
         // const edited_group = await UserGroupData().editGroup(editedGroup, userId)
-        const edited_group = await GroupElastic().editGroup(editedGroup, userId)
+        const g = await GroupElastic()
+        const edited_group = await g.editGroup(editedGroup, userId)
         return edited_group
     }
 
@@ -63,7 +68,8 @@ export default function(UserGroupData, GroupElastic, eventsData) {
         // const userId = await UserGroupData().getUserId(userToken);
         const userId = await USER_ELASTIC.getUserId(userToken)
         // const deleted_group = await UserGroupData().deleteGroup(groupId, userId)
-        const deleted_group = await GroupElastic().deleteGroup(groupId, userId)
+        const g = await GroupElastic()
+        const deleted_group = await g.deleteGroup(groupId, userId)
         return deleted_group
     }
 
@@ -72,7 +78,8 @@ export default function(UserGroupData, GroupElastic, eventsData) {
         const userId = await USER_ELASTIC.getUserId(userToken)
         const event = await eventsData().getEventsById(eventId)
         // const event_added = await UserGroupData().addEventToGroup(groupId, event, userId)
-        const event_added = await GroupElastic().addEventToGroup(groupId, event, userId)
+        const g = await GroupElastic()
+        const event_added = await g.addEventToGroup(groupId, event, userId)
         return event_added
     }
 
@@ -88,8 +95,9 @@ export default function(UserGroupData, GroupElastic, eventsData) {
         // const userId = await UserGroupData().getUserId(userToken)
         const userId = await USER_ELASTIC.getUserId(userToken)
         // const groups = await UserGroupData().listAllGroups(userId)
-        const groups = await GroupElastic().listAllGroups(userId)
-        console.log(groups)
+        const g = await GroupElastic()
+        const groups = await g.listAllGroups(userId)
+        console.log("all groups returned")
         return groups
     }
 
@@ -97,7 +105,9 @@ export default function(UserGroupData, GroupElastic, eventsData) {
         // const userId = await UserGroupData().getUserId(userToken)
         const userId = await USER_ELASTIC.getUserId(userToken)
         // const group = await UserGroupData().getGroup(groupId, userId)
-        const group = await GroupElastic().getGroup(groupId, userId)
+        const g = await GroupElastic()
+        const group = await g.getGroup(groupId, userId)
+        console.log("returned group:")
         return group
     }
 

@@ -8,32 +8,35 @@
   </head>
 
   <body>
-  <a href="/site/home.html">Home</a>
+    <a href="/site/home.html">Home</a>
 
-  {{#if event}}
-    <h2>Event</h2>
-    <head>Name: {{event.name}}</head>
-    <p>Image: {{event.Image}}</p>
-    <p> Sales start: {{event.salesStart}}</p>
-    <p>Sales end: {{event.salesEnd}}</p>
-    <p>Event dates: {{event.date}}</p>
-    <p>Segment: {{event.segment}}</p>
-    <p>Genre: {{event.genre}}</p>
-    <p>subGenre: {{event.subGenre}}</p>
-    <br></br>
-  {{/if}}
-
-  {{#if events}}
-    <h2>Events</h2>
-    {{#each events}}
-      <head>Name: {{name}}</head>
-      <p>ID: {{id}}</p>
-      <p>Event dates: {{date}}</p>
-      <p>Segment: {{segment}}</p>
-      <p>Genre: {{genre}}</p>
+    {{#if event}}
+      <h2>Event</h2>
+      <head>Name: {{event.name}}</head>
+      <p>Image: {{event.Image}}</p>
+      <p> Sales start: {{event.salesStart}}</p>
+      <p>Sales end: {{event.salesEnd}}</p>
+      <p>Event dates: {{event.date}}</p>
+      <p>Segment: {{event.segment}}</p>
+      <p>Genre: {{event.genre}}</p>
+      <p>subGenre: {{event.subGenre}}</p>
       <br></br>
-    {{/each}}
-  {{/if}}
+    {{/if}}
 
+    {{#if events}}
+      <h2>Events</h2>
+      {{#each events}}
+        <head>Name: {{name}}</head>
+        <p>ID: {{id}}</p>
+        <p>Event dates: {{date}}</p>
+        <p>Segment: {{segment}}</p>
+        <p>Genre: {{genre}}</p>
+        <br></br>
+      {{/each}}
+    {{/if}}
+    
+    {{#if message}}
+      <h3>{{message}}</h3>
+    {{/if}}  
   </body>
 </html>

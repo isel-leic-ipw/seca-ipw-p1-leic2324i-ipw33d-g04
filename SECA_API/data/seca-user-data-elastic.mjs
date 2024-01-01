@@ -14,7 +14,6 @@ export default async function (indexName = 'user') {
     return {
         addUser,
         listUsers,
-        // getUserByToken,
         getUserId
     }
 
@@ -46,7 +45,7 @@ export default async function (indexName = 'user') {
     async function getUserBy(propName, value) {
         const uri = `${URI_MANAGER.getAll()}?q=${propName}:${value}`
         return await get(uri)
-            .then(body => body.hits.hits.map(createUserFromElastic))
+            .then(body => body.hits.hits.map(createUserFromElastic)[0].id)
     }
 
     function createUserFromElastic(taskElastic) {

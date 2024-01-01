@@ -8,64 +8,57 @@ export default async function (indexName = 'group') {
 
     return {
         getGroup,
+        listAllGroups,
         editGroup,
         createGroup,
         deleteGroup
     }
 
     async function getGroup(groupId, userId){
-        const query = {
-            query: {
-                match: {
-                "userId": userId,
-                "groupId": groupId
-                }
-            }
-            }
-        return post(URI_MANAGER.getAll(), query)
-            .then(body => body.hits.hits.map(createGroup))
+        // const query = {
+        //     query: {
+        //         match: {
+        //         "id": groupId,
+        //         "userId": userId
+        //         }
+        //     }
+        // }
+        // return get(URI_MANAGER.getAll(), query)
+        const uri = `${URI_MANAGER.getAll()}?q=id:${groupId}&q=userId:${userId}`
+        return await get(uri)
+            .then(body => body.hits.hits.map(createGroupFromElastic)[0])
     }    
 
-    async function getGroupsBody(userId) {
-        const query = {
-            query: {
-              match: {
-                "userId": userId
-              }
-            }
-          }
-        return post(URI_MANAGER.getAll(), query)
-            .then(body => body.hits.hits.map(createGroup)
-)
-    }
-
-    async function getGroupsQuery(userId) {
-        const uri = `${URI_MANAGER.getAll()}?q=userId:${userId}`
-        return get(uri)
-            .then(body => body.hits.hits.map(createGroup))
-    }
-
-    async function getTask(taskId) {
-        return get(URI_MANAGER.get(taskId)).then(createGroup)
+    async function listAllGroups() {
+        const uri = `${URI_MANAGER.getAll()}`
+        return await get(uri)
+            .then(body => body.hits.hits)
     }
 
     async function editGroup(group, userId) {
-        return put(URI_MANAGER.update(userId), group)
+        if(group.userId != userId)
+            throw "Not authorized due to userId mismatch"
+        return await put(URI_MANAGER.update(group.id), group)
     }
 
-    async function deleteGroup(taskId) {
-        return del(URI_MANAGER.delete(taskId))
-            .then(body => body._id)
+    async function deleteGroup(GroupId) {
+        return await del(URI_MANAGER.delete(GroupId))
     }
 
-    function createGroup(group, taskElastic) {
-        let newGroup = Object.assign({
-            id: taskElastic._id,
+    async function createGroup(group) {
+        const uri = `${URI_MANAGER.create()}`
+        console.log("inside createGroup")
+        return await post(uri, {
             userId: group.userId,
             name: group.name,
             description: group.description,
             events: group.events
-        }, taskElastic._source)
-        return newGroup
+        })
+        // let newGroup = Object.assign(taskElastic._source)
+        // return newGroup
     }
-}
+
+    function createGroupFromElastic(taskElastic) {
+        let group = Object.assign({id: taskElastic._id}, taskElastic._source)
+        return group
+    }}

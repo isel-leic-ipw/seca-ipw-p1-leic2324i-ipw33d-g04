@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport"> 
+      <link rel="stylesheet" href="styles.css">
+      <title>{{title}}</title>
+  </head>
+  
+  <body>
+    <a href="/site/home.html">Home</a>
+    <h2>Group</h2>
+
+    {{#if group}}
+        <head>Name:{{group.name}}</head>
+        <p>Description:{{group.description}}</p>
+        <p>Id:{{group.id}}</p>
+        <p>UserId:{{group.userId}}</p>
+        <p>Events:{{group.events}}</p>
+    {{/if}}  
+
+    {{#if message}}
+        <h3>{{message}}</h3>
+    {{/if}}
+  </body>
+
+</html>
