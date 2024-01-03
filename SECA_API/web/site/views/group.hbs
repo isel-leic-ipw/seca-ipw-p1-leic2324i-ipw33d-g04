@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport"> 
-      <link rel="stylesheet" href="styles.css">
-      <title>{{title}}</title>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
   </head>
   
   <body>
@@ -16,7 +14,20 @@
         <p>Description:{{group.description}}</p>
         <p>Id:{{group.id}}</p>
         <p>UserId:{{group.userId}}</p>
-        <p>Events:{{group.events}}</p>
+        <p>Events:
+            {{#if group.events}}
+                {{#each events}}
+                    <head>Name: {{name}}</head>
+                    <p>Image: {{Image}}</p>
+                    <p> Sales start: {{salesStart}}</p>
+                    <p>Sales end: {{salesEnd}}</p>
+                    <p>Event dates: {{date}}</p>
+                    <p>Segment: {{segment}}</p>
+                    <p>Genre: {{genre}}</p>
+                    <p>subGenre: {{subGenre}}</p>
+                {{/each}}
+            {{/if}}
+        </p>
     {{/if}}  
 
     {{#if message}}

@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport"> 
-      <link rel="stylesheet" href="styles.css">
-      <title>{{title}}</title>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
   </head>
   
   <body>
@@ -13,11 +11,24 @@
 
     {{#if groups}}
       {{#each groups}}
-        <head>Group:{{_source.name}}</head>
+        <head>Name:{{_source.name}}</head>
         <p>Description:{{_source.description}}</p>
         <p>Id:{{_id}}</p>
         <p>UserId:{{_source.userId}}</p>
-        <p>Events:{{_source.events}}</p>
+        <p>Events: 
+          {{#if _source.events}}
+            {{#each _source.events}}
+              <head>Name: {{name}}</head>
+              <p>Image: {{Image}}</p>
+              <p> Sales start: {{salesStart}}</p>
+              <p>Sales end: {{salesEnd}}</p>
+              <p>Event dates: {{date}}</p>
+              <p>Segment: {{segment}}</p>
+              <p>Genre: {{genre}}</p>
+              <p>subGenre: {{subGenre}}</p>
+            {{/each}}
+          {{/if}}
+        </p>
       {{/each}}
     {{/if}}
 

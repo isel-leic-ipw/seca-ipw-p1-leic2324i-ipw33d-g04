@@ -39,7 +39,6 @@ export default function (services) {
           rsp.status(401).json("Not authorized")  
       }
       try {
-        if(req)
         return await reqProcessor(req, rsp)
       } catch (e) {
           console.log("Error:")
@@ -113,7 +112,7 @@ export default function (services) {
 
   async function _deleteGroup (req, rsp) {
     const groupId = req.body.id
-    const token = req.user.token
+    const token = req.token
     await services.deleteGroup(groupId, token)
     console.log("Group deleted")
     rsp.redirect("/site/group/list")
@@ -123,6 +122,7 @@ export default function (services) {
     const eventId = req.body.eventId
     const groupId = req.body.groupId
     await services.addEventToGroup(groupId, eventId, req.token)
+    console.log("Event added")
     rsp.redirect("/site/group/list")
   }
 
@@ -130,6 +130,7 @@ export default function (services) {
     const eventId = req.body.eventId
     const groupId = req.body.groupId
     await services.removeEventFromGroup(groupId, eventId, req.token)
+    console.log("Event removed")
     rsp.redirect("/site/group/list")
   }
   async function _editGroup(req, rsp) {
@@ -146,6 +147,7 @@ export default function (services) {
   // events
   async function _getAllPopularEventsList(req, rsp) {
     const events = await services.getAllPopularEventsList(req.token, req.query.s || DEFAULT_S, req.query.p || DEFAULT_P)
+    console.log(events)
     return rsp.render('showEvents', {title: "Popular events", events: events})
   }
   

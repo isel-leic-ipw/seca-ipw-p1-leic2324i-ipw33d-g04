@@ -13,12 +13,12 @@ export default function () {
 
   async function getAllPopularEventsList(s, p) {
     const events = await _getEvents(s, p, null, "popular")
-    return formatEventsDetails(await fetchEventDetails(events))
+    return await formatEventsDetails(await fetchEventDetails(events))
   }
 
   async function getEventsByName(name, s, p) {
     const events = await _getEvents(s, p, name)
-    return formatEventsDetails(await fetchEventDetails(events))
+    return await formatEventsDetails(await fetchEventDetails(events))
   }
 
   async function getEventById(eventId) {

@@ -10,8 +10,8 @@ import DATA_MEM from '../data/seca-data-mem.mjs'
 
 const services = SERVICES(DATA_MEM, DATA_ELASTIC, TICKETMASTER)
 const api = API(services)
-
-const token = '14d72b99-48f6-48d3-94d3-5a4dcfd96c80'
+//change it to a valid token for each machine
+const token = 'dd5e434b-b55d-4b39-bac5-2c9c8664c5ee'
 
 const user = supertest(app)
 const group = supertest(app)
@@ -36,7 +36,6 @@ app.delete('/group/:id', api.deleteGroup);
 app.get('/event/list', api.getAllPopularEventsList);
 app.get('/event/search/:name', api.getEventsByName);
 app.get('/event/:id', api.getEventById);
-
 
 describe('API Tests', () => {
   describe('User tests', function() {

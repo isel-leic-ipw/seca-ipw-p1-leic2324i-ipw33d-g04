@@ -34,7 +34,8 @@ export default function(UserGroupData, GroupElastic, eventsData) {
     async function getEventById(eventId, userToken) {
         // const userId = await UserGroupData().getUserId(userToken)
         const userId = await USER_ELASTIC.getUserId(userToken)
-        return await eventsData().getEventById(eventId, userId)
+        const event = await eventsData()
+        return await event.getEventById(eventId, userId)
     }
 
     async function createGroup(newGroup, userToken) {
@@ -44,8 +45,7 @@ export default function(UserGroupData, GroupElastic, eventsData) {
         const group = {
             userId: userId,
             name: newGroup.name, 
-            description: newGroup.description,
-            events: []
+            description: newGroup.description
         }
         console.log(group)
         // const created_group = await UserGroupData().createGroup(group)
@@ -76,7 +76,9 @@ export default function(UserGroupData, GroupElastic, eventsData) {
     async function addEventToGroup(groupId, eventId, userToken) {
         // const userId = await UserGroupData().getUserId(userToken)
         const userId = await USER_ELASTIC.getUserId(userToken)
-        const event = await eventsData().getEventsById(eventId)
+        const e = await eventsData()
+        const event = await e.getEventById(eventId)
+        console.log(event)
         // const event_added = await UserGroupData().addEventToGroup(groupId, event, userId)
         const g = await GroupElastic()
         const event_added = await g.addEventToGroup(groupId, event, userId)
@@ -87,7 +89,8 @@ export default function(UserGroupData, GroupElastic, eventsData) {
         // const userId = await UserGroupData().getUserId(userToken)
         const userId = await USER_ELASTIC.getUserId(userToken)
         // const event_removed = await UserGroupData().removeEventFromGroup(groupId, eventId, userId)
-        const event_removed = await GroupElastic().removeEventFromGroup(groupId, eventId, userId)        
+        const g = await GroupElastic()
+        const event_removed = await g.removeEventFromGroup(groupId, eventId, userId)        
         return event_removed
     }
 
@@ -115,6 +118,7 @@ export default function(UserGroupData, GroupElastic, eventsData) {
         if(!name) {
             throw errors.INVALID_ARGUMENT("name")
         }
+        const e = await eventsData()
         const event = name == "popular events" ? 
             await eventsData().getAllPopularEventsList(s, p) : 
             await eventsData().getEventsByName(name, s, p)
@@ -124,7 +128,7 @@ export default function(UserGroupData, GroupElastic, eventsData) {
     }
 
     async function createUser(user) {
-        // const d = await UserGroupData().addUser(user)
+        // const d = await Use<rGroupData().addUser(user)
         const d = await USER_ELASTIC.addUser(user)
         return d
     }
