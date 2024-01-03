@@ -3,7 +3,6 @@
 import {get, post, del, put} from './fetch-wrapper.mjs'
 import uriManager from './seca-data-elastic.mjs'
 
-const EVENTS = []
 export default async function (indexName = 'group') {
     const URI_MANAGER = await uriManager(indexName)
 
@@ -52,7 +51,17 @@ export default async function (indexName = 'group') {
             userId: group.userId,
             name: group.name,
             description: group.description,
-            events: EVENTS.map(e => e.event)
+            events: [{
+                id: null,
+                name: null,
+                Image: null,
+                salesStart: null,
+                salesEnd: null,
+                date: null,
+                segment: null,
+                genre: null,
+                subGenre: null,
+              }]
         }
         console.log("inside createGroup")
         return await post(uri, newGroup)
