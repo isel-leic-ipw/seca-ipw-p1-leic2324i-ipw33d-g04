@@ -93,7 +93,7 @@ export default function() {
             userId: group.userId,
             name: group.name,
             description: group.description,
-            events: group.events
+            events: []
         }
         GROUPS.push(createdGroup)
         return createdGroup

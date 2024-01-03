@@ -20,7 +20,7 @@ export default async function (indexName = 'user') {
     async function addUser(username) {
         const uri = `${URI_MANAGER.create()}`
         const a = await listUsers()
-        if( a == [] || !a.find(u => u._source.name == username)){
+        if( a.length == 0 || !a.find(u => u._source.name == username)){
             console.log("User not exists yet")
             await post(uri, {name: username, token: crypto.randomUUID()})
             return true
@@ -38,26 +38,14 @@ export default async function (indexName = 'user') {
         return await getUserBy("token",  token)
     }
 
-    // async function getUserByUsername(username) {
-    //     return getUserBy("name", username)
-    // }
-
     async function getUserBy(propName, value) {
         const uri = `${URI_MANAGER.getAll()}?q=${propName}:${value}`
         return await get(uri)
             .then(body => body.hits.hits.map(createUserFromElastic)[0].id)
     }
 
-    function createUserFromElastic(taskElastic) {
-        let user = Object.assign({id: taskElastic._id}, taskElastic._source)
+    function createUserFromElastic(userElastic) {
+        let user = Object.assign({id: userElastic._id}, userElastic._source)
         return user
     }
-    // function createTaskFromElastic(taskElastic) {
-    //     let user = Object.assign({
-    //         id: taskElastic._id,
-    //         userId: taskElastic._source.userId,
-    //         name: taskElastic._source.name,
-    //     }, taskElastic._source)
-    //     return user
-    // }
 }
