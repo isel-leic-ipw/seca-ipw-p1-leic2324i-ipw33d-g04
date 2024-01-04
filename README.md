@@ -2,16 +2,26 @@
 
 ## Unidade Curricular de Introdução à Programação na Web
 
-#### 2ª Fase do projeto
+#### 3ª Fase do projeto (final)
 
-Nesta fase procuramos refinar as ideias pensadas da 1ª fase, levando em conta os requisitos do enunciado ao pormenor
+Nesta fase procuramos melhorar aptidões adquiridas na 2ª fase, bem como requisitos de funcionalidade agora solicitados
 
 Próximas tarefas a serem desenvolvidas:
 
-##### 1 -> A interface web HTML e CSS deverá ser implementada em um novo arquivo denominado seca-web-site.js que deverá estar no mesmo nível que seca-web-api.js.
+##### 1 -> Adicionar a funcionalidade de registro e autenticação de usuário na aplicação SECA.
+Todos os recursos de gerenciamento de grupos de eventos devem estar acessíveis apenas a usuários autenticados. Os grupos são privados para cada usuário e só podem ser manipulados pelo seu proprietário. A autenticação deve ser implementada com o módulo Passport.
 
-##### 2 -> Crie um novo módulo que substitua seca-data-mem.js para que os dados sejam armazenados em um banco de dados ElasticSearch. Esta alteração não deve implicar nenhuma alteração adicional nos módulos restantes da aplicação além do carregamento do módulo no seca-server. A interação com o ElasticSearch deve ser feita através de sua API HTTP utilizando a função fetch, sem utilizar nenhum módulo de nó específico para ElasticSearch.
+##### 2 -> Todas as funcionalidades disponíveis na Web API desenvolvida na SECA parte 1, deverão estar disponíveis também através da interface de usuário disponível no site.
+As operações DELETE e PUT disponíveis na Web API podem ser utilizadas pelas páginas do site para implementar as funcionalidades correspondentes, com o JavaScript do cliente na página web usando a função fetch() do navegador para fazer as solicitações HTTP.
 
-##### 3 -> Melhorar a qualidade do código, bem como a qualidade e quantidade de testes, sejam unitários ou de integração.
+##### 3 -> Criar um relatório no repositório wiki do grupo, descrevendo a execução de todo o trabalho desenvolvido durante o semestre.
+O relatório deve incluir:
 
-##### 4 -> [opcional] Criar testes de integração para a API com módulo supertest
+*   Descrição da estrutura da aplicação, em ambos os lados (servidor e cliente).
+*   Design de armazenamento de dados (ou seja, em ElasticSearch), nomeadamente: índice ou índices; propriedades do documento; relações entre documentos, se houver; etc.
+*   Descrição do mapeamento entre os documentos SECA do ElastictSearch e o modelo de objetos da aplicação web.
+*   Documentação da API do servidor.
+*   Instruções para todos os passos anteriores necessários à execução da aplicação e respetivos testes.
+
+Estas etapas devem incluir as ações necessárias para a introdução automática dos dados de teste, para que seja possível executar a aplicação com os dados.
+As instruções devem conter toda a informação necessária para executar a aplicação em qualquer máquina, nomeadamente a do professor. As instruções para executar a aplicação deverão ser executadas em no máximo 5 min.
