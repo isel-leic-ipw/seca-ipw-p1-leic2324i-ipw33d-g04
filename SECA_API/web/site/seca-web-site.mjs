@@ -29,7 +29,8 @@ export default function (services) {
     return async function(req, rsp) {
       //This is a way to  give authorization due to HTTP stateless, it can't save state among requests
       //This token was generated in the createUser function so you're free to change it
-      req.headers.authorization =  'Bearer ' + 'dd5e434b-b55d-4b39-bac5-2c9c8664c5ee'
+      // req.headers.authorization =  'Bearer ' + 'dd5e434b-b55d-4b39-bac5-2c9c8664c5ee'
+      req.headers.authorization =  'Bearer ' + req.user.token
       // console.log(req.headers)
       const token = getToken(req)
       // console.log(token)

@@ -23,7 +23,8 @@ export default function(services) {
 
 function processRequest(reqProcessor) {
   return async function(req, rsp) {
-      const token = getToken(req)
+    req.headers.authorization =  'Bearer ' + req.user.token
+    const token = getToken(req)
       if(!token) {
           rsp.status(401).json("Not authorized")  
       }

@@ -9,19 +9,19 @@
 
     <body>
         <a href="/site/home.html">Home</a>
-        <h2>All Groups</h2>
+        <h2>All Groups (WEB)</h2>
         <p>Get the info for all available groups here!</p>
         <form action="/site/group/list">
             <input type="submit" value="Go">
         </form>
 
-        <h2>Get Group By ID</h2>
+        <h2>Get Group By ID (WEB)</h2>
         <p>Change the desired group's id on path!</p>
         <form action="/site/group/L44dxYwBpUWzYN2HuoLg">
             <input type="submit" value="Go">
         </form>   
 
-        <h2>Create a Group</h2>
+        <h2>Create a Group (WEB)</h2>
         <p>Create a new group below!</p>
         <form action="/site/createGroup" method="post">
             Name: <input type="text" name="name" id="name" placeholder="Insert a Group Name" required>
@@ -29,7 +29,7 @@
             <input type="submit" value="Go">
         </form>
 
-        <h2>Edit a Group</h2>
+        <h2>Edit a Group (WEB)</h2>
         <p>Insert a groupId to edit and its details to below!</p>
         <form action="/site/editGroup" method="post">
             ID: <input type="text" name="id" id="id" placeholder="Insert a Group Id" required>
@@ -38,14 +38,14 @@
             <input type="submit" value="Go">
         </form>
 
-        <h2>Delete a Group</h2>
+        <h2>Delete a Group (WEB)</h2>
         <p>Insert its groupId below!</p>
         <form action="/site/deleteGroup" method="post">
             ID: <input type="text" name="id" id="id" placeholder="Insert a Group Id" required>
             <input type="submit" value="Go">
         </form>
 
-        <h2>Add event to Group</h2>
+        <h2>Add event to Group (WEB)</h2>
         <p>Add an eventId to a groupId below!</p>
         <form action="/site/group/add" method="post">
             EventID: <input type="text" name="eventId" id="eventId" placeholder="Insert an Event Id" required>
@@ -53,12 +53,32 @@
             <input type="submit" value="Go">
         </form>
 
-        <h2>Delete event from Group</h2>
+        <h2>Delete event from Group (WEB)</h2>
         <p>Remove an eventId from groupId below!</p>
         <form action="/site/group/remove" method="post">
             EventID: <input type="text" name="eventId" id="eventId" placeholder="Insert an Event Id" required>
             GroupID: <input type="text" name="groupId" id="groupId" placeholder="Insert a Group Id" required>
             <input type="submit" value="Go">
         </form>
+
+        <h2>All Groups (API)</h2>
+        <p>Get the info for all available groups here!</p>
+        <form action="/group/list">
+            <input type="submit" value="Go">
+        </form>
+
+        <h2>Get Group By its ID (API)</h2>
+        <p>Change the desired group's id on path!</p>
+        <form action="/group/L44dxYwBpUWzYN2HuoLg">
+            <input type="submit" value="Go">
+        </form>
+
+        <h2>Create a Group (API)</h2>
+        <p>Create a new group below!</p>
+        <form action="/group" method="post">
+            Name: <input type="text" name="name" id="name" placeholder="Insert a Group Name" required>
+            Description: <input type="text" name="description" id="description" placeholder="Insert a description" required>
+            <input type="submit" value="Go">
+        </form>        
     </body>
 </html>

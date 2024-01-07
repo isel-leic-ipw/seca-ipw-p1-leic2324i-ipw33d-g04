@@ -14,7 +14,8 @@ export default async function (indexName = 'user') {
     return {
         addUser,
         listUsers,
-        getUserId
+        getUserId,
+        getUserByName
     }
 
     async function addUser(username) {
@@ -36,6 +37,10 @@ export default async function (indexName = 'user') {
 
     async function getUserId(token) {
         return await getUserBy("token",  token)
+    }
+
+    async function getUserByName(name) {
+        return await getUserBy("name",  name)
     }
 
     async function getUserBy(propName, value) {

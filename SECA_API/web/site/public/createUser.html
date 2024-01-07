@@ -10,11 +10,17 @@
   <body>
     <a href="/site/home.html">Home</a>
 
-    <h2>Create User</h2>
-      <p>You don't have an account? Create one here!</p>
-      <form action="/site/user" method="post">
-        Name: <input type="text" name="name" id="name" required>
-        <input type="submit" value="Go">
-      </form>
+    <h2>Create User (WEB)</h2>
+    <p>You don't have an account? Create one here!</p>
+    <form action="/site/user" method="post">
+      Name: <input type="text" name="name" id="name" required>
+      <input type="submit" value="Go">
+    </form>
+    <h2>Create User (API)</h2>
+    <p>You don't have an account? Create one here!</p>
+    <form action="/user" method="post">
+      Name: <input type="text" name="name" id="name" required>
+      <input type="submit" value="Go">
+    </form> 
   </body>
 </html>

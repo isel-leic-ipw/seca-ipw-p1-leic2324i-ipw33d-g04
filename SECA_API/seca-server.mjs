@@ -14,7 +14,7 @@ import hbs from 'hbs'
 import passport from 'passport'
 import expressSession from 'express-session'
 var app = express();
-
+const EVENT_FORMS = ''
 const currentFileDir = url.fileURLToPath(new URL('.', import.meta.url));
 const swaggerDocument = yaml.load(`${currentFileDir}/docs/seca-api-spec.yaml`)
 const SERVICES = services(data_mem, group_elastic, ticketmaster)
@@ -83,7 +83,6 @@ app.get('/site/group/list', WEB.listAllGroups);
 app.get('/site/group/:id', WEB.getGroup);
 app.post('/site/user', WEB.createUser);
 
-export default app; // para testes
 app.listen(PORT, (err) => {
   if (err)
     return console.log('Something bad happened', err);
@@ -92,7 +91,8 @@ app.listen(PORT, (err) => {
 
 function homeNotAuthenticated(req, rsp) {
   let user = req.user ? req.user.username : "unknown"
-  rsp.end(`Everybody can reach  this endpoint. Hello ${user}`) 
+  rsp.send(`Login to the application here: <a href="/login">Login</a> or Create an User here: <a href="/site/createUser.html">Create User</a>`)
+  rsp.end(`Everybody can reach  this endpoint. Hello ${user}, you are not authenticated.`)
 }
 
 function homeAuthenticated(req, rsp) {
@@ -106,7 +106,9 @@ function homeAuthenticated(req, rsp) {
         <input type="submit" value="Logout">
     </form>
 
-  </body>
+    <form method="GET" action="/site/home.html">
+        <input type="submit" value="Go to home page">
+    </form>  </body>
 </html>`)
 }
 
@@ -127,7 +129,7 @@ function loginForm(req, rsp) {
           </p>
 
           <p>
-          Token: <input type="token" name="token">
+          Token: <input type="text" name="token">
           </p>
 
           <input type="submit">
@@ -150,11 +152,8 @@ function validateLogin(req, rsp) {
     req.login(user, () => rsp.redirect('/auth/home'))
   }
 
-
-
   function validateUser(username, token) { 
-    //TODO(): validate user and token in the database
-    return true
+    return SERVICES.validateUser(username, token)
   }
 }
 

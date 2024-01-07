@@ -16,7 +16,8 @@ export default function(UserGroupData, GroupElastic, eventsData) {
         listAllGroups: listAllGroups,
         listUsers: listUsers,
         getGroup: getGroup,
-        createUser: createUser
+        createUser: createUser,
+        validateUser: validateUser
     }
 
     async function getAllPopularEventsList(userToken, s, p) {
@@ -137,5 +138,12 @@ export default function(UserGroupData, GroupElastic, eventsData) {
         // const u = await UserGroupData().listUsers()
         const u = await USER_ELASTIC.listUsers()
         return u
+    }
+    async function validateUser(user, userToken) {
+        const userId = await USER_ELASTIC.getUserId(userToken) 
+        const userIdByName = await USER_ELASTIC.getUserByName(user)
+        if(userId == userIdByName)
+            return true
+        return false
     }
 }
