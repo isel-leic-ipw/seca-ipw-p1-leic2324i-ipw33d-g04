@@ -11,8 +11,10 @@ import url from 'url'
 import cors from 'cors'
 import path from 'path'
 import hbs from 'hbs'
+import passport from 'passport'
+import expressSession from 'express-session'
 var app = express();
-export default app; // para testes
+
 const currentFileDir = url.fileURLToPath(new URL('.', import.meta.url));
 const swaggerDocument = yaml.load(`${currentFileDir}/docs/seca-api-spec.yaml`)
 const SERVICES = services(data_mem, group_elastic, ticketmaster)
@@ -23,16 +25,36 @@ console.log("Starting server");
 app.get('/', (req, res) => {
   res.send('Welcome to SECA API!');
 });
+//const FileStore = fileStore(expressSession)
+app.use(expressSession({
+  secret: "IPW-33D-495-500-505",
+  resave: false,
+  saveUninitialized: false
+  //store: new FileStore()
+}))
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded())
 app.use('/site', express.static(`${currentFileDir}/web/site/public`))
 
+// Passport initialization
+app.use(passport.session())
+app.use(passport.initialize())
+
+passport.serializeUser(serializeUserDeserializeUser)
+passport.deserializeUser(serializeUserDeserializeUser)
+// authentication
+app.use('/auth', verifyAuthenticated)
+app.get('/home', homeNotAuthenticated)
+app.get('/auth/home', homeAuthenticated)
+app.get('/login', loginForm)
+app.post('/login', validateLogin)
+app.post('/logout', logout)
+
 app.set('view engine', 'hbs')
 const viewsDir = path.join(currentFileDir, 'web', 'site', 'views')
 app.set('views', viewsDir)
-// hbs.registerPartials(path.join(viewsDir, 'partials'))
 
 // web api routes
 app.get('/event/list', API.getAllPopularEventsList);
@@ -46,10 +68,8 @@ app.get('/group/list', API.listAllGroups);
 app.get('/group/:id', API.getGroup);
 app.delete('/group/:id', API.deleteGroup);
 app.post('/user', API.createUser);
+
 // web site routes
-// app.get('/site', (req, res) => {
-//   res.sendFile('home.html', { root: `${currentFileDir}/web/site` });
-// });
 
 app.get('/site/event/list', WEB.getAllPopularEventsList);
 app.get('/site/event/search/:name', WEB.getEventsByName);
@@ -63,8 +83,92 @@ app.get('/site/group/list', WEB.listAllGroups);
 app.get('/site/group/:id', WEB.getGroup);
 app.post('/site/user', WEB.createUser);
 
+export default app; // para testes
 app.listen(PORT, (err) => {
   if (err)
     return console.log('Something bad happened', err);
   console.log(`Listening at http://localhost:${PORT}`);
 });
+
+function homeNotAuthenticated(req, rsp) {
+  let user = req.user ? req.user.username : "unknown"
+  rsp.end(`Everybody can reach  this endpoint. Hello ${user}`) 
+}
+
+function homeAuthenticated(req, rsp) {
+  console.log("homeAuthenticated - ", req.user)
+  rsp.send(`
+  <html>
+  <head></head>
+  <body>
+    <h1>You can only reach here if you are authenticated. Hello ${req.user.username}</h1>
+    <form method="POST" action="/logout">
+        <input type="submit" value="Logout">
+    </form>
+
+  </body>
+</html>`)
+}
+
+function serializeUserDeserializeUser (user, done) {
+  console.log("serializeUserDeserializeUser", user)
+  done(null, user)
+}
+
+function loginForm(req, rsp) {
+  rsp.send(`
+  <html>
+    <head></head>
+    <body>
+      <h1>Login</h1>
+      <form method="POST" action="/login">
+          <p>
+          Username: <input type="text" name="username" value="">
+          </p>
+
+          <p>
+          Token: <input type="token" name="token">
+          </p>
+
+          <input type="submit">
+      </form>
+
+    </body>
+  </html>
+  `)
+}
+
+
+function validateLogin(req, rsp) {
+  console.log("validateLogin")
+  if(validateUser(req.body.username, req.body.token)) {
+    const user = {
+      username: req.body.username,
+      token: req.body.token
+    }
+    console.log(user)
+    req.login(user, () => rsp.redirect('/auth/home'))
+  }
+
+
+
+  function validateUser(username, token) { 
+    //TODO(): validate user and token in the database
+    return true
+  }
+}
+
+
+function verifyAuthenticated(req, rsp, next) {
+  console.log("verifyAuthenticated", req.user)
+  if(req.user) {
+    return next()
+  }
+  rsp.redirect('/login')
+}
+
+function logout(req, rsp) {
+  req.logout((err) => { 
+    rsp.redirect('/home')
+  })
+}
